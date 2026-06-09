@@ -112,3 +112,8 @@ pfq_2017_raw:
 member1_silver:
   type: pandas.ParquetDataset
   filepath: data/02_intermediate/member1_silver.parquet
+
+# --- GOLD LAYER (MEMBER 1) ---
+member1_gold:
+  type: pandas.ParquetDataset
+  filepath: data/03_primary/member1_gold.parquet
