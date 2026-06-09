@@ -107,3 +107,8 @@ pfq_2015_raw:
 pfq_2017_raw:
   type: pandas.ParquetDataset
   filepath: data/01_raw/pfq_2017_2018.parquet
+
+# --- SILVER LAYER (MEMBER 1) ---
+member1_silver:
+  type: pandas.ParquetDataset
+  filepath: data/02_intermediate/member1_silver.parquet
