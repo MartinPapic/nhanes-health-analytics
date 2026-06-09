@@ -1,0 +1,11 @@
+[tool.kedro]
+package_name = "nhanes_pipeline"
+project_name = "nhanes-health-analytics"
+project_version = "0.19.0"
+
+[project]
+name = "nhanes-health-analytics"
+version = "0.1.0"
+description = "Kedro pipeline for NHANES longevity analysis"
+readme = "README.md"
+requires-python = ">=3.9"

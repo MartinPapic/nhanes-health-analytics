@@ -1,0 +1,109 @@
+# Catálogo de Datos - Miembro 1 (Demographics & Questionnaire)
+
+# --- DEMOGRAPHICS ---
+demographics_2015_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/demo_2015_2016.parquet
+
+demographics_2017_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/demo_2017_2018.parquet
+
+# --- MEDICAL CONDITIONS ---
+mcq_2015_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/mcq_2015_2016.parquet
+
+mcq_2017_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/mcq_2017_2018.parquet
+
+# --- DIABETES ---
+diq_2015_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/diq_2015_2016.parquet
+
+diq_2017_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/diq_2017_2018.parquet
+
+# --- BLOOD PRESSURE & CHOLESTEROL ---
+bpq_2015_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/bpq_2015_2016.parquet
+
+bpq_2017_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/bpq_2017_2018.parquet
+
+# --- CARDIOVASCULAR DISEASE ---
+cdq_2015_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/cdq_2015_2016.parquet
+
+cdq_2017_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/cdq_2017_2018.parquet
+
+# --- SMOKING ---
+smq_2015_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/smq_2015_2016.parquet
+
+smq_2017_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/smq_2017_2018.parquet
+
+# --- ALCOHOL USE ---
+alq_2015_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/alq_2015_2016.parquet
+
+alq_2017_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/alq_2017_2018.parquet
+
+# --- PHYSICAL ACTIVITY ---
+paq_2015_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/paq_2015_2016.parquet
+
+paq_2017_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/paq_2017_2018.parquet
+
+# --- SLEEP DISORDERS ---
+slq_2015_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/slq_2015_2016.parquet
+
+slq_2017_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/slq_2017_2018.parquet
+
+# --- WEIGHT HISTORY ---
+whq_2015_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/whq_2015_2016.parquet
+
+whq_2017_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/whq_2017_2018.parquet
+
+# --- MENTAL HEALTH (DEPRESSION) ---
+dpq_2015_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/dpq_2015_2016.parquet
+
+dpq_2017_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/dpq_2017_2018.parquet
+
+# --- PHYSICAL FUNCTIONING ---
+pfq_2015_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/pfq_2015_2016.parquet
+
+pfq_2017_raw:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/pfq_2017_2018.parquet

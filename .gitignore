@@ -1,0 +1,26 @@
+# Ambientes Virtuales
+.venv/
+venv/
+env/
+__pycache__/
+
+# Datos
+*.parquet
+*.xpt
+*.XPT
+*.csv
+data/01_raw/*
+data/02_intermediate/*
+data/03_primary/*
+data/04_feature/*
+data/05_model_input/*
+data/06_models/*
+data/07_model_output/*
+data/08_reporting/*
+data/temp_xpt/*
+
+# Archivos de entorno
+.env
+
+# Jupyter
+.ipynb_checkpoints/
