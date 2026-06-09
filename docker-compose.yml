@@ -1,2 +1,20 @@
 version: '3.8'
+
 services:
+  db:
+    image: postgres:15-alpine
+    container_name: nhanes_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: nhanes_analytics
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Este mapeo ejecuta init.sql automáticamente la primera vez que se levanta el contenedor
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  pgdata:
