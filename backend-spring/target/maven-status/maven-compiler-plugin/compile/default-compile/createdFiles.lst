@@ -1,0 +1,5 @@
+com\nhanes\health_analytics\controller\AnalyticsController.class
+com\nhanes\health_analytics\controller\HealthController.class
+com\nhanes\health_analytics\repository\GoldAnalyticsRepository.class
+com\nhanes\health_analytics\HealthAnalyticsApplication.class
+com\nhanes\health_analytics\model\GoldAnalyticsMaster.class

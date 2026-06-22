@@ -1,65 +1,100 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState } from "react";
+
+interface LongevityRecord {
+  seqn: number;
+  surveyCycle: string;
+  ageYears: number;
+  gender: string;
+  longevityGroup: string;
+  healthyAgingScore: number;
+}
 
 export default function Home() {
+  const [data, setData] = useState<LongevityRecord[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:8081/api/v1/analytics")
+      .then((res) => res.json())
+      .then((json) => {
+        // Spring Data JPA Paging returns { content: [...] }
+        setData(json.content || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching data", err);
+        setLoading(false);
+      });
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="min-h-screen bg-gray-900 text-white p-8">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-4xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">
+          NHANES Longevity Dashboard
+        </h1>
+
+        <div className="bg-gray-800 rounded-xl p-6 shadow-2xl border border-gray-700">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-semibold">Capa Gold - Datos Procesados</h2>
+            <div className="text-sm text-gray-400">
+              {loading ? "Conectando al Backend..." : `${data.length} registros (Página 1)`}
+            </div>
+          </div>
+
+          {loading ? (
+            <div className="flex justify-center items-center h-48">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-gray-700 text-gray-400 uppercase text-xs">
+                    <th className="p-3">SEQN</th>
+                    <th className="p-3">Ciclo</th>
+                    <th className="p-3">Edad</th>
+                    <th className="p-3">Género</th>
+                    <th className="p-3">Grupo Longevidad</th>
+                    <th className="p-3 text-right">Healthy Aging Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((record) => (
+                    <tr key={record.seqn} className="border-b border-gray-700/50 hover:bg-gray-700/30 transition-colors">
+                      <td className="p-3 font-mono text-gray-300">{record.seqn}</td>
+                      <td className="p-3 text-sm">{record.surveyCycle}</td>
+                      <td className="p-3">{record.ageYears}</td>
+                      <td className="p-3">{record.gender}</td>
+                      <td className="p-3">
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          record.longevityGroup.includes('Extrema') ? 'bg-purple-900/50 text-purple-300 border border-purple-700/50' :
+                          record.longevityGroup.includes('Alta') ? 'bg-teal-900/50 text-teal-300 border border-teal-700/50' :
+                          'bg-blue-900/50 text-blue-300 border border-blue-700/50'
+                        }`}>
+                          {record.longevityGroup}
+                        </span>
+                      </td>
+                      <td className="p-3 text-right font-semibold text-teal-400">
+                        {record.healthyAgingScore}
+                      </td>
+                    </tr>
+                  ))}
+                  {data.length === 0 && (
+                    <tr>
+                      <td colSpan={6} className="p-6 text-center text-gray-500">
+                        No hay datos disponibles. Verifica que el backend esté conectado a PostgreSQL.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
