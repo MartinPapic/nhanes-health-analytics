@@ -19,8 +19,7 @@ def load_data():
     # Mapear ciclo
     df_db['survey_cycle'] = df['SDDSRVYR'].map({9.0: '2015-2016', 10.0: '2017-2018'}).fillna('Unknown')
     
-    # Transformar género de numérico a string para mayor claridad si es necesario,
-    # O mantenerlo. En la tabla es VARCHAR. 1 = Male, 2 = Female.
+    # Transformar género de numérico a string
     df_db['gender'] = df_db['gender'].map({1.0: 'Hombre', 2.0: 'Mujer'}).fillna('Desconocido')
     
     # Seleccionar solo las columnas necesarias
@@ -28,7 +27,7 @@ def load_data():
     df_db = df_db[cols_to_insert]
     
     # 3. Conectar a PostgreSQL
-    engine = create_engine('postgresql://postgres:admin@localhost:5432/nhanes_analytics')
+    engine = create_engine('postgresql://postgres:admin@localhost:5434/nhanes_analytics')
     
     # 4. Insertar en la tabla gold_analytics_master
     print("Insertando datos en PostgreSQL...")

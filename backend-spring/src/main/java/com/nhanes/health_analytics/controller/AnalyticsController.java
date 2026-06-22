@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/analytics")
-@CrossOrigin(origins = "*") // Para permitir peticiones desde Next.js local
 public class AnalyticsController {
 
     private final GoldAnalyticsRepository repository;

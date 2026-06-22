@@ -1,5 +1,13 @@
+com\nhanes\health_analytics\model\Role.class
+com\nhanes\health_analytics\repository\UserRepository.class
+com\nhanes\health_analytics\config\WebConfig.class
 com\nhanes\health_analytics\controller\AnalyticsController.class
 com\nhanes\health_analytics\controller\HealthController.class
 com\nhanes\health_analytics\repository\GoldAnalyticsRepository.class
-com\nhanes\health_analytics\HealthAnalyticsApplication.class
+com\nhanes\health_analytics\model\User.class
+com\nhanes\health_analytics\repository\LongevityMetricRepository.class
+com\nhanes\health_analytics\model\LongevityMetric.class
+com\nhanes\health_analytics\controller\DashboardController.class
 com\nhanes\health_analytics\model\GoldAnalyticsMaster.class
+com\nhanes\health_analytics\controller\UserController.class
+com\nhanes\health_analytics\HealthAnalyticsApplication.class
