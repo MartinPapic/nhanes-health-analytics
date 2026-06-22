@@ -1,0 +1,115 @@
+[
+  {
+    "event": "before_pipeline_run",
+    "timestamp": "2026-06-22T03:35:00.724582+00:00"
+  },
+  {
+    "event": "after_node_run",
+    "node": "download_cdc_data_node",
+    "node_id": "16c93d0c",
+    "duration": 0.0330482999997912,
+    "status": "success"
+  },
+  {
+    "event": "after_dataset_saved",
+    "dataset": "ingestion_status",
+    "node_id": "f6fc63f1",
+    "status": "Available",
+    "size": 0
+  },
+  {
+    "event": "after_dataset_loaded",
+    "dataset": "ingestion_status",
+    "node_id": "f6fc63f1",
+    "status": "Available",
+    "size": 0
+  },
+  {
+    "event": "after_node_run",
+    "node": "merge_and_clean_silver_layer_node",
+    "node_id": "6f5e7f96",
+    "duration": 1.7463334999993094,
+    "status": "success"
+  },
+  {
+    "event": "after_dataset_saved",
+    "dataset": "member1_silver_raw",
+    "node_id": "29656341",
+    "status": "Available",
+    "size": 0
+  },
+  {
+    "event": "after_dataset_loaded",
+    "dataset": "member1_silver_raw",
+    "node_id": "29656341",
+    "status": "Available",
+    "size": 0
+  },
+  {
+    "event": "after_node_run",
+    "node": "validate_silver_layer_node",
+    "node_id": "f69d67fa",
+    "duration": 0.04254200000286801,
+    "status": "success"
+  },
+  {
+    "event": "after_dataset_saved",
+    "dataset": "member1_silver",
+    "node_id": "7efe4761",
+    "status": "Available",
+    "size": 1400103
+  },
+  {
+    "event": "after_dataset_saved",
+    "dataset": "member1_rejected",
+    "node_id": "7e6076c3",
+    "status": "Available",
+    "size": 203389
+  },
+  {
+    "event": "after_dataset_loaded",
+    "dataset": "member1_silver",
+    "node_id": "7efe4761",
+    "status": "Available",
+    "size": 1400103
+  },
+  {
+    "event": "after_node_run",
+    "node": "calculate_healthy_aging_score_node",
+    "node_id": "527b7a31",
+    "duration": 0.0450150999968173,
+    "status": "success"
+  },
+  {
+    "event": "after_dataset_saved",
+    "dataset": "member1_intermediate_gold",
+    "node_id": "d7bac4bc",
+    "status": "Available",
+    "size": 0
+  },
+  {
+    "event": "after_dataset_loaded",
+    "dataset": "member1_intermediate_gold",
+    "node_id": "d7bac4bc",
+    "status": "Available",
+    "size": 0
+  },
+  {
+    "event": "after_node_run",
+    "node": "define_longevity_groups_node",
+    "node_id": "bf4fe1cc",
+    "duration": 0.011139599999296479,
+    "status": "success"
+  },
+  {
+    "event": "after_dataset_saved",
+    "dataset": "member1_gold",
+    "node_id": "e219d759",
+    "status": "Available",
+    "size": 1410068
+  },
+  {
+    "event": "after_pipeline_run",
+    "timestamp": "2026-06-22T03:35:03.458270+00:00"
+  }
+]

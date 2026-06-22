@@ -35,6 +35,35 @@ def merge_and_clean_silver_layer(ingestion_status: str) -> pd.DataFrame:
     
     if not df_15_16.empty and not df_17_18.empty:
         df_silver = pd.concat([df_15_16, df_17_18], ignore_index=True)
-        return df_silver
     else:
-        return pd.DataFrame()
+        df_silver = pd.DataFrame()
+        
+    return df_silver
+
+def validate_silver_layer(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """
+    Realiza validaciones de esquema, rangos y valores nulos (ETL-04).
+    Genera un reporte de registros rechazados (ETL-06).
+    """
+    if df.empty:
+        return df, pd.DataFrame()
+        
+    # Reglas de validación:
+    # 1. SEQN no debe ser nulo
+    # 2. RIDAGEYR debe estar entre 20 y 120
+    # 3. RIAGENDR debe ser 1 o 2
+    
+    invalid_mask = (
+        df['SEQN'].isna() |
+        (df['RIDAGEYR'] < 20) | (df['RIDAGEYR'] > 120) |
+        (~df['RIAGENDR'].isin([1.0, 2.0]))
+    )
+    
+    df_valid = df[~invalid_mask].copy()
+    df_rejected = df[invalid_mask].copy()
+    
+    # Añadir motivo de rechazo
+    if not df_rejected.empty:
+        df_rejected['rejection_reason'] = "Fallo de validación en SEQN, Edad o Género"
+        
+    return df_valid, df_rejected

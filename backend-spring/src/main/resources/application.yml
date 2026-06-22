@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: health-analytics
+  datasource:
+    url: jdbc:postgresql://localhost:5432/nhanes_db
+    username: postgres
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

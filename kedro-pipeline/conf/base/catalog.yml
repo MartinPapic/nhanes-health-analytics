@@ -113,6 +113,10 @@ member1_silver:
   type: pandas.ParquetDataset
   filepath: data/02_intermediate/member1_silver.parquet
 
+member1_rejected:
+  type: pandas.ParquetDataset
+  filepath: data/02_intermediate/member1_rejected.parquet
+
 # --- GOLD LAYER (MEMBER 1) ---
 member1_gold:
   type: pandas.ParquetDataset
