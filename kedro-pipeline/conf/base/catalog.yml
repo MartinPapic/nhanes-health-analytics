@@ -163,6 +163,13 @@ member3_gold:
   type: pandas.ParquetDataset
   filepath: data/03_primary/member3_gold.parquet
 
+# --- QUALITY REPORT (MEMBER 3) ---
+member3_quality_report:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/member3_quality_report.csv
+  save_args:
+    index: false
+
 # --- POSTGRES EXPORT STATUS ---
 member3_postgres_status:
   type: kedro_datasets.text.TextDataset

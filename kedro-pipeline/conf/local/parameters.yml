@@ -1,0 +1,12 @@
+# =============================================================================
+# Parámetros de conexión PostgreSQL — Matías Retamal (Member 3)
+# Este archivo está en conf/local/ y es ignorado por Git (.gitignore)
+# NO subir credenciales reales al repositorio.
+# =============================================================================
+
+postgres_credentials:
+  host: localhost
+  port: 5432
+  database: nhanes
+  user: postgres
+  password: "TU_PASSWORD_AQUI"
