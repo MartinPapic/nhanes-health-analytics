@@ -117,3 +117,21 @@ member1_silver:
 member1_gold:
   type: pandas.ParquetDataset
   filepath: data/03_primary/member1_gold.parquet
+
+#-- INGESTION STATUS ---
+
+ingestion_status:
+  type: text.TextDataset
+  filepath: data/02_intermediate/ingestion_status.txt
+
+#-- SILVER LAYER (MEMBER 2 - CLAUDIO) ---
+
+member2_silver:
+  type: pandas.ParquetDataset
+  filepath: data/02_intermediate/member2_silver.parquet
+
+#-- GOLD LAYER (MEMBER 2 - CLAUDIO) ---
+
+member2_gold:
+  type: pandas.ParquetDataset
+  filepath: data/03_primary/member2_gold.parquet

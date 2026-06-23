@@ -6,7 +6,7 @@ def download_cdc_data() -> str:
     """Descarga los datos crudos del CDC y los convierte a Parquet."""
     
     CYCLES = {"2015-2016": "_I", "2017-2018": "_J"}
-    FILES = ["DEMO", "MCQ", "DIQ", "BPQ", "CDQ", "SMQ", "ALQ", "PAQ", "SLQ", "WHQ", "DPQ", "PFQ"]
+    FILES = ["DEMO", "MCQ", "DIQ", "BPQ", "CDQ", "SMQ", "ALQ", "PAQ", "SLQ", "WHQ", "DPQ", "PFQ", "DR1TOT", "DR2TOT", "BPX", "BMX"]
     BASE_URL = "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public"
     RAW_DIR = "data/01_raw"
     TEMP_DIR = "data/temp_xpt"
