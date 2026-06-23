@@ -16,6 +16,8 @@ public class GoldAnalyticsMaster {
     private String gender;
     private String longevityGroup;
     private Double healthyAgingScore;
+    private Double cardioRiskScore;
+    private Double nutritionalQualityScore;
 
     public GoldAnalyticsMaster() {}
 
@@ -65,5 +67,21 @@ public class GoldAnalyticsMaster {
 
     public void setHealthyAgingScore(Double healthyAgingScore) {
         this.healthyAgingScore = healthyAgingScore;
+    }
+
+    public Double getCardioRiskScore() {
+        return cardioRiskScore;
+    }
+
+    public void setCardioRiskScore(Double cardioRiskScore) {
+        this.cardioRiskScore = cardioRiskScore;
+    }
+
+    public Double getNutritionalQualityScore() {
+        return nutritionalQualityScore;
+    }
+
+    public void setNutritionalQualityScore(Double nutritionalQualityScore) {
+        this.nutritionalQualityScore = nutritionalQualityScore;
     }
 }

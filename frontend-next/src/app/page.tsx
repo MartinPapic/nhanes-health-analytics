@@ -9,6 +9,8 @@ interface LongevityRecord {
   gender: string;
   longevityGroup: string;
   healthyAgingScore: number;
+  cardioRiskScore?: number | null;
+  nutritionalQualityScore?: number | null;
 }
 
 export default function Home() {
@@ -59,6 +61,8 @@ export default function Home() {
                     <th className="p-3">Género</th>
                     <th className="p-3">Grupo Longevidad</th>
                     <th className="p-3 text-right">Healthy Aging Score</th>
+                    <th className="p-3 text-right">Cardio Risk Score</th>
+                    <th className="p-3 text-right">Nutritional Quality</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -71,20 +75,26 @@ export default function Home() {
                       <td className="p-3">
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                           record.longevityGroup.includes('Extrema') ? 'bg-purple-900/50 text-purple-300 border border-purple-700/50' :
-                          record.longevityGroup.includes('Alta') ? 'bg-teal-900/50 text-teal-300 border border-teal-700/50' :
-                          'bg-blue-900/50 text-blue-300 border border-blue-700/50'
-                        }`}>
+                            record.longevityGroup.includes('Alta') ? 'bg-teal-900/50 text-teal-300 border border-teal-700/50' :
+                              'bg-blue-900/50 text-blue-300 border border-blue-700/50'
+                          }`}>
                           {record.longevityGroup}
                         </span>
                       </td>
                       <td className="p-3 text-right font-semibold text-teal-400">
                         {record.healthyAgingScore}
                       </td>
+                      <td className="p-3 text-right font-semibold text-rose-400">
+                        {record.cardioRiskScore !== undefined && record.cardioRiskScore !== null ? record.cardioRiskScore : "-"}
+                      </td>
+                      <td className="p-3 text-right font-semibold text-green-400">
+                        {record.nutritionalQualityScore !== undefined && record.nutritionalQualityScore !== null ? record.nutritionalQualityScore : "-"}
+                      </td>
                     </tr>
                   ))}
                   {data.length === 0 && (
                     <tr>
-                      <td colSpan={6} className="p-6 text-center text-gray-500">
+                      <td colSpan={8} className="p-6 text-center text-gray-500">
                         No hay datos disponibles. Verifica que el backend esté conectado a PostgreSQL.
                       </td>
                     </tr>
