@@ -189,10 +189,11 @@ def merge_and_clean_silver_layer(ingestion_status: str) -> pd.DataFrame:
         ignore_index=True
     )
 
-def transform_silver_to_gold(df_silver: pd.DataFrame) -> pd.DataFrame:
+def transform_silver_to_gold(df_silver: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     """
     Toma la capa silver de Claudio, limpia valores nulos, crea promedios 
     para la dieta y genera categorías para análisis (Capa Gold).
+    Además extrae los registros anómalos para auditoría.
     """
     df = df_silver.copy()
     
@@ -211,8 +212,15 @@ def transform_silver_to_gold(df_silver: pd.DataFrame) -> pd.DataFrame:
                     'DR1TCARB', 'DR2TCARB', 'DR1TTFAT', 'DR2TTFAT']
     df = df.drop(columns=[c for c in cols_to_drop if c in df.columns])
     
-    # 3. Limpieza de NaNs en variables clave de salud
-    df = df.dropna(subset=['BMXBMI', 'BPXSY1', 'BPXDI1'])
+    # 3. Limpieza de NaNs en variables clave de salud y Detección de Anomalías
+    # Separamos los registros inválidos
+    mask_invalid = df['BMXBMI'].isna() | df['BPXSY1'].isna() | df['BPXDI1'].isna() | (df['BPXSY1'] > 250)
+    
+    df_rejected = df[mask_invalid].copy()
+    df_rejected['REJECTION_REASON'] = 'Valores nulos en signos vitales o fuera de rango lógico'
+    
+    # Nos quedamos con los datos limpios
+    df = df[~mask_invalid].copy()
     
     # 4. Crear categorías para el BMI
     def categorize_bmi(bmi):
@@ -228,4 +236,4 @@ def transform_silver_to_gold(df_silver: pd.DataFrame) -> pd.DataFrame:
     for col in diet_cols:
         df[col] = df[col].fillna(df[col].median())
         
-    return df
+    return df, df_rejected

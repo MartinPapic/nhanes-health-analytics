@@ -13,7 +13,7 @@ def create_pipeline(**kwargs) -> Pipeline:
         node(
             func=transform_silver_to_gold,
             inputs="member2_silver",
-            outputs="member2_gold",
+            outputs=["member2_gold", "member2_rejected_records"],
             name="transform_silver_to_gold_member2"
         )
     ])

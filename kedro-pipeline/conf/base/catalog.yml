@@ -139,3 +139,7 @@ member2_silver:
 member2_gold:
   type: pandas.ParquetDataset
   filepath: data/03_primary/member2_gold.parquet
+
+member2_rejected_records:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/member2_rejected_records.csv
