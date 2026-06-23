@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class AnalyticsController {
 
     private final GoldAnalyticsRepository repository;
+    
+    @Autowired
+    private org.springframework.jdbc.core.JdbcTemplate jdbcTemplate;
 
     @Autowired
     public AnalyticsController(GoldAnalyticsRepository repository) {
@@ -31,5 +34,17 @@ public class AnalyticsController {
         // Exponer los datos con paginación para no sobrecargar el frontend
         Page<GoldAnalyticsMaster> result = repository.findAll(PageRequest.of(page, size));
         return ResponseEntity.ok(result);
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/member3")
+    public ResponseEntity<java.util.List<java.util.Map<String, Object>>> getMember3Data() {
+        String sql = "SELECT * FROM public.nhanes_lab_gold LIMIT 150";
+        try {
+            java.util.List<java.util.Map<String, Object>> data = jdbcTemplate.queryForList(sql);
+            return ResponseEntity.ok(data);
+        } catch (Exception e) {
+            return ResponseEntity.ok(new java.util.ArrayList<>());
+        }
     }
 }
