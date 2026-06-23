@@ -13,41 +13,35 @@ def calculate_healthy_aging_score(df: pd.DataFrame) -> pd.DataFrame:
     """
     df_gold = df.copy()
     
-    # Déficit 1: Diabetes (DIQ010 == 1 significa que un médico le diagnosticó diabetes)
-    # Lógica de imputación: Si es nulo, asumimos ausencia de diabetes (0)
-    if 'DIQ010' in df_gold.columns:
-        df_gold['deficit_diabetes'] = np.where(df_gold['DIQ010'] == 1.0, 1.0, 0.0)
-    else:
-        df_gold['deficit_diabetes'] = 0.0
-        
-    # Déficit 2: Síntomas Depresivos (DPQ020: Frecuencia de sentirse deprimido. 1, 2 o 3 indican presencia)
-    if 'DPQ020' in df_gold.columns:
-        df_gold['deficit_depression'] = np.where(df_gold['DPQ020'].isin([1.0, 2.0, 3.0]), 1.0, 0.0)
-    else:
-        df_gold['deficit_depression'] = 0.0
+    # Lista de variables y sus reglas para sumar un punto de déficit
+    deficits_rules = {
+        'DIQ010': lambda x: np.where(x == 1.0, 1.0, 0.0), # Diabetes
+        'DPQ020': lambda x: np.where(x.isin([1.0, 2.0, 3.0]), 1.0, 0.0), # Depresión
+        'SMQ020': lambda x: np.where(x == 1.0, 1.0, 0.0), # Tabaquismo
+        'MCQ160A': lambda x: np.where(x == 1.0, 1.0, 0.0), # Artritis
+        'MCQ220': lambda x: np.where(x == 1.0, 1.0, 0.0), # Cáncer
+        'MCQ160L': lambda x: np.where(x == 1.0, 1.0, 0.0), # Hígado
+        'BPQ020': lambda x: np.where(x == 1.0, 1.0, 0.0), # Hipertensión
+        'BPQ080': lambda x: np.where(x == 1.0, 1.0, 0.0), # Colesterol alto
+        'CDQ001': lambda x: np.where(x == 1.0, 1.0, 0.0), # Dolor pecho
+        'SLQ050': lambda x: np.where(x == 1.0, 1.0, 0.0), # Problemas dormir
+        'PFQ061B': lambda x: np.where(x.isin([2.0, 3.0, 4.0]), 1.0, 0.0), # Dificultad para caminar
+        'PFQ061C': lambda x: np.where(x.isin([2.0, 3.0, 4.0]), 1.0, 0.0) # Dificultad para subir escalones
+    }
 
-    # Déficit 3: Tabaquismo (SMQ020 == 1 significa que ha fumado al menos 100 cigarros en su vida)
-    if 'SMQ020' in df_gold.columns:
-        df_gold['deficit_smoking'] = np.where(df_gold['SMQ020'] == 1.0, 1.0, 0.0)
-    else:
-        df_gold['deficit_smoking'] = 0.0
+    df_gold['total_deficits'] = 0.0
+    total_deficits_evaluated = len(deficits_rules)
+    
+    for col, rule in deficits_rules.items():
+        if col in df_gold.columns:
+            df_gold['total_deficits'] += rule(df_gold[col])
 
-    # Cálculo matemático
-    total_deficits_evaluated = 3.0
-    
-    # Acumulamos déficits
-    df_gold['total_deficits'] = (
-        df_gold['deficit_diabetes'] + 
-        df_gold['deficit_depression'] + 
-        df_gold['deficit_smoking']
-    )
-    
     # Aplicamos Frailty Index y lo invertimos para que sea un Score de "Salud"
     frailty_index = df_gold['total_deficits'] / total_deficits_evaluated
     df_gold['healthy_aging_score'] = (1.0 - frailty_index) * 100.0
     
-    # Limpiamos columnas temporales
-    df_gold = df_gold.drop(columns=['deficit_diabetes', 'deficit_depression', 'deficit_smoking', 'total_deficits'])
+    # Limpiamos
+    df_gold = df_gold.drop(columns=['total_deficits'])
     
     return df_gold
 

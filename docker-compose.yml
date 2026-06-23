@@ -10,11 +10,31 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: nhanes_analytics
     ports:
-      - "5432:5432"
+      - "5434:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
       # Este mapeo ejecuta init.sql automáticamente la primera vez que se levanta el contenedor
       - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  backend:
+    build: ./backend-spring
+    container_name: nhanes_backend
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://nhanes_postgres:5432/nhanes_analytics
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend-next
+    container_name: nhanes_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8081
+    depends_on:
+      - backend
 
 volumes:
   pgdata:

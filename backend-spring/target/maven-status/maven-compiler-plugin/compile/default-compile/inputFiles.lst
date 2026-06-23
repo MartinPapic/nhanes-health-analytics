@@ -1,0 +1,13 @@
+C:\Users\mapap\Desktop\quinto_semestre\Programación para la ciencia de datos\EV3Nhanes\nhanes-health-analytics\backend-spring\src\main\java\com\nhanes\health_analytics\config\WebConfig.java
+C:\Users\mapap\Desktop\quinto_semestre\Programación para la ciencia de datos\EV3Nhanes\nhanes-health-analytics\backend-spring\src\main\java\com\nhanes\health_analytics\controller\AnalyticsController.java
+C:\Users\mapap\Desktop\quinto_semestre\Programación para la ciencia de datos\EV3Nhanes\nhanes-health-analytics\backend-spring\src\main\java\com\nhanes\health_analytics\controller\DashboardController.java
+C:\Users\mapap\Desktop\quinto_semestre\Programación para la ciencia de datos\EV3Nhanes\nhanes-health-analytics\backend-spring\src\main\java\com\nhanes\health_analytics\controller\HealthController.java
+C:\Users\mapap\Desktop\quinto_semestre\Programación para la ciencia de datos\EV3Nhanes\nhanes-health-analytics\backend-spring\src\main\java\com\nhanes\health_analytics\controller\UserController.java
+C:\Users\mapap\Desktop\quinto_semestre\Programación para la ciencia de datos\EV3Nhanes\nhanes-health-analytics\backend-spring\src\main\java\com\nhanes\health_analytics\HealthAnalyticsApplication.java
+C:\Users\mapap\Desktop\quinto_semestre\Programación para la ciencia de datos\EV3Nhanes\nhanes-health-analytics\backend-spring\src\main\java\com\nhanes\health_analytics\model\GoldAnalyticsMaster.java
+C:\Users\mapap\Desktop\quinto_semestre\Programación para la ciencia de datos\EV3Nhanes\nhanes-health-analytics\backend-spring\src\main\java\com\nhanes\health_analytics\model\LongevityMetric.java
+C:\Users\mapap\Desktop\quinto_semestre\Programación para la ciencia de datos\EV3Nhanes\nhanes-health-analytics\backend-spring\src\main\java\com\nhanes\health_analytics\model\Role.java
+C:\Users\mapap\Desktop\quinto_semestre\Programación para la ciencia de datos\EV3Nhanes\nhanes-health-analytics\backend-spring\src\main\java\com\nhanes\health_analytics\model\User.java
+C:\Users\mapap\Desktop\quinto_semestre\Programación para la ciencia de datos\EV3Nhanes\nhanes-health-analytics\backend-spring\src\main\java\com\nhanes\health_analytics\repository\GoldAnalyticsRepository.java
+C:\Users\mapap\Desktop\quinto_semestre\Programación para la ciencia de datos\EV3Nhanes\nhanes-health-analytics\backend-spring\src\main\java\com\nhanes\health_analytics\repository\LongevityMetricRepository.java
+C:\Users\mapap\Desktop\quinto_semestre\Programación para la ciencia de datos\EV3Nhanes\nhanes-health-analytics\backend-spring\src\main\java\com\nhanes\health_analytics\repository\UserRepository.java
