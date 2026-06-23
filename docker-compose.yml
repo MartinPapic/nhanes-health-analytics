@@ -1,40 +1,44 @@
-version: '3.8'
+version: "3.9"
+
+# =============================================================================
+# Docker Compose — NHANES PostgreSQL Local
+# Uso:
+#   docker compose up -d          # levantar
+#   docker compose down           # bajar
+#   docker compose down -v        # bajar y borrar datos
+# =============================================================================
 
 services:
-  db:
-    image: postgres:15-alpine
+  postgres:
+    image: postgres:16-alpine
     container_name: nhanes_postgres
-    restart: always
+    restart: unless-stopped
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: nhanes_analytics
+      POSTGRES_DB:       nhanes
+      POSTGRES_USER:     postgres
+      POSTGRES_PASSWORD: nhanes2024
     ports:
-      - "5434:5432"
+      - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
-      # Este mapeo ejecuta init.sql automáticamente la primera vez que se levanta el contenedor
-      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - nhanes_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d nhanes"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  backend:
-    build: ./backend-spring
-    container_name: nhanes_backend
-    ports:
-      - "8081:8081"
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: nhanes_pgadmin
+    restart: unless-stopped
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://nhanes_postgres:5432/nhanes_analytics
-    depends_on:
-      - db
-
-  frontend:
-    build: ./frontend-next
-    container_name: nhanes_frontend
+      PGADMIN_DEFAULT_EMAIL:    admin@nhanes.com
+      PGADMIN_DEFAULT_PASSWORD: admin
     ports:
-      - "3000:3000"
-    environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:8081
+      - "5050:80"
     depends_on:
-      - backend
+      postgres:
+        condition: service_healthy
 
 volumes:
-  pgdata:
+  nhanes_pgdata:

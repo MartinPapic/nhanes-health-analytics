@@ -1,5 +1,10 @@
 # Catálogo de Datos - Miembro 1 (Demographics & Questionnaire)
 
+# --- SHARED PIPELINE SIGNALS ---
+ingestion_status:
+  type: kedro_datasets.text.TextDataset
+  filepath: data/02_intermediate/ingestion_status.txt
+
 # --- DEMOGRAPHICS ---
 demographics_2015_raw:
   type: pandas.ParquetDataset
@@ -122,12 +127,6 @@ member1_gold:
   type: pandas.ParquetDataset
   filepath: data/03_primary/member1_gold.parquet
 
-#-- INGESTION STATUS ---
-
-ingestion_status:
-  type: text.TextDataset
-  filepath: data/02_intermediate/ingestion_status.txt
-
 #-- SILVER LAYER (MEMBER 2 - CLAUDIO) ---
 
 member2_silver:
@@ -143,3 +142,56 @@ member2_gold:
 member2_rejected_records:
   type: pandas.CSVDataset
   filepath: data/08_reporting/member2_rejected_records.csv
+
+# ==============================================================================
+# MEMBER 3 — Matías Retamal: Laboratory & Limited Access Data
+# ==============================================================================
+
+# --- BRONZE LAYER (MEMBER 3) ---
+member3_lab_bronze:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/member3_lab_bronze.parquet
+
+member3_ltd_bronze:
+  type: pandas.ParquetDataset
+  filepath: data/01_raw/member3_ltd_bronze.parquet
+
+member3_data_dictionary:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/member3_data_dictionary.csv
+  save_args:
+    index: false
+
+# --- SILVER LAYER (MEMBER 3) ---
+member3_lab_silver:
+  type: pandas.ParquetDataset
+  filepath: data/02_intermediate/member3_lab_silver.parquet
+
+member3_lab_rejected:
+  type: pandas.ParquetDataset
+  filepath: data/02_intermediate/member3_lab_rejected.parquet
+
+member3_ltd_silver:
+  type: pandas.ParquetDataset
+  filepath: data/02_intermediate/member3_ltd_silver.parquet
+
+member3_ltd_rejected:
+  type: pandas.ParquetDataset
+  filepath: data/02_intermediate/member3_ltd_rejected.parquet
+
+# --- GOLD LAYER (MEMBER 3) ---
+member3_gold:
+  type: pandas.ParquetDataset
+  filepath: data/03_primary/member3_gold.parquet
+
+# --- QUALITY REPORT (MEMBER 3) ---
+member3_quality_report:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/member3_quality_report.csv
+  save_args:
+    index: false
+
+# --- POSTGRES EXPORT STATUS ---
+member3_postgres_status:
+  type: kedro_datasets.text.TextDataset
+  filepath: data/08_reporting/member3_postgres_status.txt

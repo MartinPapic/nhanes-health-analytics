@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import dynamic from "next/dynamic";
 
+// Load react-plotly.js dynamically to avoid SSR "window/document is not defined" error
 const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
 
 interface LongevityRecord {
@@ -115,9 +116,25 @@ export default function Home() {
   const [ageRange, setAgeRange] = useState<[number, number]>([0, 120]);
   const [showCritical, setShowCritical] = useState(false);
 
+  // Member 3 states
+  const [member3Data, setMember3Data] = useState<any[]>([]);
+  const [loadingM3, setLoadingM3] = useState(true);
+
   useEffect(() => {
     setLoadingMsg("Cargando dataset completo...");
     fetchAll().then(all => { setAllData(all); setLoading(false); }).catch(() => { setLoadingMsg("Error conectando al backend."); setLoading(false); });
+
+    // Fetch Member 3 laboratory gold data
+    fetch(`${BASE_URL}/api/v1/analytics/member3`)
+      .then((res) => res.json())
+      .then((json) => {
+        setMember3Data(json || []);
+        setLoadingM3(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching member 3 data", err);
+        setLoadingM3(false);
+      });
   }, []);
 
   const ageMin = useMemo(() => allData.length ? Math.min(...allData.map(r => r.ageYears)) : 0, [allData]);
@@ -244,6 +261,122 @@ export default function Home() {
                   {filtered.length.toLocaleString()} filtrados
                 </span>
               )}
+            </div>
+          )}
+        </div>
+
+        {/* Sección Miembro 3 - Matías Retamal (Clínicos y Longevidad) */}
+        <div className="bg-gray-800 rounded-xl p-6 shadow-2xl border border-gray-700 mt-8">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-400">
+              Análisis Clínico y de Longevidad — Miembro 3 (Matías Retamal)
+            </h2>
+            <div className="text-sm text-gray-400">
+              {loadingM3 ? "Cargando datos clínicos..." : `${member3Data.length} registros cargados`}
+            </div>
+          </div>
+
+          {loadingM3 ? (
+            <div className="flex justify-center items-center h-48">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500"></div>
+            </div>
+          ) : member3Data.length === 0 ? (
+            <div className="text-center p-6 text-gray-500">
+              No hay datos clínicos de la capa Gold disponibles. Asegúrate de correr la pipeline de Kedro y exportar a PostgreSQL.
+            </div>
+          ) : (
+            <div>
+              {/* KPIs de laboratorio */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-700/50">
+                  <div className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Índice de Riesgo Promedio</div>
+                  <div className="text-2xl font-bold text-purple-400 mt-1">
+                    {(member3Data.reduce((acc, r) => acc + (r.longevity_risk_index ?? r.longevityRiskIndex ?? 0), 0) / member3Data.length).toFixed(2)}%
+                  </div>
+                  <div className="text-xs text-gray-500 mt-1">Medida compuesta de 8 biomarcadores</div>
+                </div>
+                <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-700/50">
+                  <div className="text-xs text-gray-400 uppercase tracking-wider font-semibold">HbA1c Promedio</div>
+                  <div className="text-2xl font-bold text-teal-400 mt-1">
+                    {(member3Data.reduce((acc, r) => acc + (r.LBXGH ?? r.lbxgh ?? 0), 0) / member3Data.length).toFixed(2)}%
+                  </div>
+                  <div className="text-xs text-gray-500 mt-1">Nivel promedio de glicosilada</div>
+                </div>
+                <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-700/50">
+                  <div className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Colesterol Total Promedio</div>
+                  <div className="text-2xl font-bold text-blue-400 mt-1">
+                    {(member3Data.reduce((acc, r) => acc + (r.LBXTC ?? r.lbxtc ?? 0), 0) / member3Data.length).toFixed(2)} mg/dL
+                  </div>
+                  <div className="text-xs text-gray-500 mt-1">Nivel promedio de colesterol en sangre</div>
+                </div>
+              </div>
+
+              {/* Gráficos de Plotly */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Gráfico 1: Tiers de Riesgo */}
+                <div className="bg-gray-950 p-4 rounded-lg border border-gray-700/50 flex flex-col items-center">
+                  <h3 className="text-sm font-semibold mb-3 text-gray-300">Distribución de Categorías de Riesgo de Longevidad</h3>
+                  <Plot
+                    data={[
+                      {
+                        type: 'bar',
+                        x: ['Low', 'Moderate', 'High', 'Critical'],
+                        y: [
+                          member3Data.filter(r => (r.risk_tier ?? r.riskTier) === 'Low').length,
+                          member3Data.filter(r => (r.risk_tier ?? r.riskTier) === 'Moderate').length,
+                          member3Data.filter(r => (r.risk_tier ?? r.riskTier) === 'High').length,
+                          member3Data.filter(r => (r.risk_tier ?? r.riskTier) === 'Critical').length
+                        ],
+                        marker: {
+                          color: ['#2dd4bf', '#3b82f6', '#a855f7', '#ef4444'],
+                        }
+                      }
+                    ]}
+                    layout={{
+                      width: 450,
+                      height: 320,
+                      paper_bgcolor: 'rgba(0,0,0,0)',
+                      plot_bgcolor: 'rgba(0,0,0,0)',
+                      font: { color: '#9ca3af' },
+                      margin: { t: 20, b: 40, l: 40, r: 20 },
+                      xaxis: { gridcolor: '#374151' },
+                      yaxis: { gridcolor: '#374151' }
+                    }}
+                    config={{ displayModeBar: false }}
+                  />
+                </div>
+
+                {/* Gráfico 2: HbA1c vs Riesgo */}
+                <div className="bg-gray-950 p-4 rounded-lg border border-gray-700/50 flex flex-col items-center">
+                  <h3 className="text-sm font-semibold mb-3 text-gray-300">Relación: HbA1c vs. Índice de Riesgo de Longevidad</h3>
+                  <Plot
+                    data={[
+                      {
+                        x: member3Data.map(r => r.LBXGH ?? r.lbxgh),
+                        y: member3Data.map(r => r.longevity_risk_index ?? r.longevityRiskIndex),
+                        mode: 'markers',
+                        type: 'scatter',
+                        marker: {
+                          color: '#a855f7',
+                          size: 6,
+                          opacity: 0.7
+                        }
+                      }
+                    ]}
+                    layout={{
+                      width: 450,
+                      height: 320,
+                      paper_bgcolor: 'rgba(0,0,0,0)',
+                      plot_bgcolor: 'rgba(0,0,0,0)',
+                      font: { color: '#9ca3af' },
+                      margin: { t: 20, b: 40, l: 40, r: 20 },
+                      xaxis: { title: 'HbA1c (%)', gridcolor: '#374151', titlefont: { size: 12 } },
+                      yaxis: { title: 'Índice de Riesgo (%)', gridcolor: '#374151', titlefont: { size: 12 } }
+                    }}
+                    config={{ displayModeBar: false }}
+                  />
+                </div>
+              </div>
             </div>
           )}
         </div>
