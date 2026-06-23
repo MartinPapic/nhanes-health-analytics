@@ -1,5 +1,10 @@
 # Catálogo de Datos - Miembro 1 (Demographics & Questionnaire)
 
+# --- SHARED PIPELINE SIGNALS ---
+ingestion_status:
+  type: kedro_datasets.text.TextDataset
+  filepath: data/02_intermediate/ingestion_status.txt
+
 # --- DEMOGRAPHICS ---
 demographics_2015_raw:
   type: pandas.ParquetDataset
