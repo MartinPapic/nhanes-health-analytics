@@ -24,12 +24,9 @@ public class AnalyticsController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<GoldAnalyticsMaster>> getAnalytics(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        
-        // Exponer los datos con paginación para no sobrecargar el frontend
-        Page<GoldAnalyticsMaster> result = repository.findAll(PageRequest.of(page, size));
+    public ResponseEntity<Page<GoldAnalyticsMaster>> getAnalytics(org.springframework.data.domain.Pageable pageable) {
+        // Exponer los datos con paginación y ordenamiento
+        Page<GoldAnalyticsMaster> result = repository.findAll(pageable);
         return ResponseEntity.ok(result);
     }
 }
