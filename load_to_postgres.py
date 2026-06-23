@@ -1,10 +1,23 @@
 import pandas as pd
 from sqlalchemy import create_engine
+import logging
+
+# Configure basic logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def load_data():
+    """
+    Lee los datos procesados de la Capa Gold (Miembro 1) desde formato Parquet 
+    y los carga en la tabla principal de PostgreSQL para ser consumidos por la API.
+    
+    Transforms:
+        - Mapea códigos numéricos de 'survey_cycle' a strings descriptivos.
+        - Mapea códigos numéricos de 'gender' a strings descriptivos.
+        - Renombra columnas para estandarizar formato (snake_case) antes de la inserción.
+    """
     # 1. Leer el archivo Parquet de la capa Gold
     parquet_path = "kedro-pipeline/data/03_primary/member1_gold.parquet"
-    print(f"Leyendo datos desde: {parquet_path}")
+    logging.info(f"Leyendo datos desde: {parquet_path}")
     df = pd.read_parquet(parquet_path)
     
     # 2. Renombrar y derivar columnas
@@ -27,12 +40,13 @@ def load_data():
     df_db = df_db[cols_to_insert]
     
     # 3. Conectar a PostgreSQL
-    engine = create_engine('postgresql://postgres:admin@localhost:5434/nhanes_analytics')
+    # URL de conexión se asume disponible localmente.
+    engine = create_engine('postgresql://postgres:nhanes2024@localhost:5434/nhanes')
     
     # 4. Insertar en la tabla gold_analytics_master
-    print("Insertando datos en PostgreSQL...")
+    logging.info("Insertando datos en PostgreSQL...")
     df_db.to_sql('gold_analytics_master', engine, if_exists='append', index=False)
-    print(f"¡Se han insertado {len(df_db)} registros exitosamente!")
+    logging.info(f"¡Se han insertado {len(df_db)} registros exitosamente!")
 
 if __name__ == "__main__":
     load_data()

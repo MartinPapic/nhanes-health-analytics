@@ -1,11 +1,11 @@
 version: "3.9"
 
 # =============================================================================
-# Docker Compose — NHANES PostgreSQL Local
+# Docker Compose — NHANES Full Stack
 # Uso:
-#   docker compose up -d          # levantar
-#   docker compose down           # bajar
-#   docker compose down -v        # bajar y borrar datos
+#   docker compose up -d --build  # Levantar todo
+#   docker compose down           # Bajar servicios
+#   docker compose down -v        # Bajar y borrar volúmenes de datos
 # =============================================================================
 
 services:
@@ -14,15 +14,15 @@ services:
     container_name: nhanes_postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB:       nhanes
-      POSTGRES_USER:     postgres
-      POSTGRES_PASSWORD: nhanes2024
+      POSTGRES_DB:       ${POSTGRES_DB:-nhanes}
+      POSTGRES_USER:     ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-nhanes2024}
     ports:
-      - "5432:5432"
+      - "5434:5432"
     volumes:
       - nhanes_pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d nhanes"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-nhanes}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -32,13 +32,44 @@ services:
     container_name: nhanes_pgadmin
     restart: unless-stopped
     environment:
-      PGADMIN_DEFAULT_EMAIL:    admin@nhanes.com
-      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_DEFAULT_EMAIL:    ${PGADMIN_EMAIL:-admin@nhanes.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
     ports:
       - "5050:80"
     depends_on:
       postgres:
         condition: service_healthy
+
+  backend:
+    build:
+      context: ./backend-spring
+      dockerfile: Dockerfile
+    container_name: nhanes_backend
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/${POSTGRES_DB:-nhanes}
+      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER:-postgres}
+      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD:-nhanes2024}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend-next
+      dockerfile: Dockerfile
+    container_name: nhanes_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # URL expuesta al cliente (browser), por lo que debe ser 127.0.0.1
+      - NEXT_PUBLIC_API_URL=http://127.0.0.1:8081
+    depends_on:
+      - backend
 
 volumes:
   nhanes_pgdata:

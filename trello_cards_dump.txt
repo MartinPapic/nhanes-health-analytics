@@ -1,0 +1,1011 @@
+[[ANA-01] Epic: 4: Longevity Analytics]
+**Historia de usuario:**
+Como analista, quiero `longevity_group` para clasificar grupos de edad/envejecimiento saludable y poder hacer comparaciones.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[ANA-02] Epic: 4: Longevity Analytics]
+**Historia de usuario:**
+Como analista, quiero `healthy_aging_score` para resumir indicadores seleccionados y explorar patrones relacionados con la longevidad.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[ANA-03] Epic: 4: Longevity Analytics]
+**Historia de usuario:**
+Como analista, quiero `risk_profile` para comparar factores demográficos, dietéticos, de laboratorio, exámenes y cuestionarios para que los hallazgos sean comprensibles.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[ANA-04] Epic: 4: Longevity Analytics]
+**Historia de usuario:**
+Como evaluador, quiero que los hallazgos se presenten como asociaciones, no diagnósticos médicos ni pruebas causales, para que las conclusiones sean responsables.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[API-00] Epic: 5: Backend API]
+**Historia de usuario:**
+Como usuario, quiero iniciar sesión con credenciales y recibir un JWT para que el acceso esté restringido a usuarios autorizados.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[API-01] Epic: 5: Backend API]
+**Historia de usuario:**
+Como desarrollador frontend, quiero un endpoint para el catálogo de datasets para mostrar las secciones y ciclos disponibles.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[API-02] Epic: 5: Backend API]
+**Historia de usuario:**
+Como desarrollador frontend, quiero un endpoint para los esquemas de datasets para mostrar la documentación de variables.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[API-03] Epic: 5: Backend API]
+**Historia de usuario:**
+Como usuario del dashboard, quiero endpoints de resumen analítico para que las tarjetas de KPI y gráficos carguen desde el backend.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[API-04] Epic: 5: Backend API]
+**Historia de usuario:**
+Como usuario del dashboard, quiero respuestas listas para Plotly para que los gráficos se rendericen consistentemente.
+
+**Prioridad:** Should
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[API-05] Epic: 5: Backend API]
+**Historia de usuario:**
+Como operador, quiero endpoints del estado de ejecución del pipeline para poder monitorear el ETL.
+
+**Prioridad:** Should
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[API-06] Epic: 5: Backend API]
+**Historia de usuario:**
+Como evaluador, quiero documentación Swagger/OpenAPI para poder inspeccionar fácilmente el comportamiento de la API.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[API-07] Epic: 5: Backend API]
+**Historia de usuario:**
+Como administrador, quiero endpoints de gestión de usuarios para poder crear, editar, deshabilitar y asignar roles.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[SEC-01] Epic: 5B: Security and User Management]
+**Historia de usuario:**
+Como usuario, quiero que el acceso se bloquee hasta iniciar sesión para proteger los datos y controles del proyecto.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[SEC-02] Epic: 5B: Security and User Management]
+**Historia de usuario:**
+Como administrador, quiero los roles `ADMIN`, `ANALYST` y `VIEWER` para separar los permisos.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[SEC-03] Epic: 5B: Security and User Management]
+**Historia de usuario:**
+Como administrador, quiero una pantalla visual de gestión de usuarios para administrarlos sin tener que acceder a la base de datos.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[SEC-04] Epic: 5B: Security and User Management]
+**Historia de usuario:**
+Como usuario, quiero manejo de cierre de sesión y expiración de tokens para que las sesiones estén controladas.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[SEC-05] Epic: 5B: Security and User Management]
+**Historia de usuario:**
+Como evaluador, quiero estándares de seguridad documentados para que las decisiones de autenticación y autorización sean justificables.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[DB-01] Epic: 6: PostgreSQL and Storage]
+**Historia de usuario:**
+Como desarrollador backend, quiero tablas de PostgreSQL para el catálogo de datasets, campos, métricas, calidad y ejecuciones de pipeline para que la API tenga datos confiables.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[DB-03] Epic: 6: PostgreSQL and Storage]
+**Historia de usuario:**
+Como usuario del dashboard, quiero tablas indexadas o vistas materializadas para que las visualizaciones carguen rápido.
+
+**Prioridad:** Should
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[DB-04] Epic: 6: PostgreSQL and Storage]
+**Historia de usuario:**
+Como miembro del equipo, quiero columnas de linaje en las tablas cargadas para que el origen y ejecución del pipeline sean auditables.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[DB-05] Epic: 6: PostgreSQL and Storage]
+**Historia de usuario:**
+Como ingeniero de seguridad, quiero tablas de usuario, rol, refresh-token y auditoría para que el acceso JWT y la gestión de usuarios se guarden de forma segura.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[FE-01] Epic: 7: Frontend Dashboard]
+**Historia de usuario:**
+Como usuario ejecutivo, quiero KPIs de longevidad de alto nivel para entender los hallazgos principales rápidamente.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[FE-02] Epic: 7: Frontend Dashboard]
+**Historia de usuario:**
+Como usuario técnico, quiero vistas de validación, linaje y estado del pipeline para poder evaluar la calidad de los datos.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[FE-03] Epic: 7: Frontend Dashboard]
+**Historia de usuario:**
+Como usuario operativo, quiero filtros por ciclo, sección, grupo de edad, sexo y longevidad para poder explorar los datos.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[FE-04] Epic: 7: Frontend Dashboard]
+**Historia de usuario:**
+Como usuario, quiero gráficos interactivos de Plotly para comparar factores asociados con la longevidad.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[FE-05] Epic: 7: Frontend Dashboard]
+**Historia de usuario:**
+Como evaluador, quiero etiquetas de datos reales y notas de origen para que las limitaciones de los datos estén claras.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[FE-06] Epic: 7: Frontend Dashboard]
+**Historia de usuario:**
+Como usuario, quiero una pantalla de inicio de sesión para entrar al sistema con credenciales.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[FE-07] Epic: 7: Frontend Dashboard]
+**Historia de usuario:**
+Como administrador, quiero una sección de gestión de usuarios para crear, editar, deshabilitar y asignar roles visualmente.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[FE-08] Epic: 7: Frontend Dashboard]
+**Historia de usuario:**
+Como usuario, quiero que el acceso a las rutas dependa de mi rol para ver solo las secciones permitidas.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[ORCH-01] Epic: 8: Airflow and Databricks]
+**Historia de usuario:**
+Como ingeniero de datos, quiero un DAG de Airflow que ejecute Kedro para que la orquestación del ETL esté automatizada.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[ORCH-02] Epic: 8: Airflow and Databricks]
+**Historia de usuario:**
+Como evaluador, quiero capturas de pantalla/logs de Airflow para que la evidencia de orquestación sea visible.
+
+**Prioridad:** Should
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[ORCH-03] Epic: 8: Airflow and Databricks]
+**Historia de usuario:**
+Como analista de datos, quiero notebooks o evidencia de jobs en Databricks para representar el procesamiento escalable.
+
+**Prioridad:** Should
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[DEP-01] Epic: 9: Docker, AWS, and Deployment]
+**Historia de usuario:**
+Como desarrollador, quiero Dockerfiles para frontend, backend y Kedro para que los servicios se ejecuten consistentemente.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[DEP-02] Epic: 9: Docker, AWS, and Deployment]
+**Historia de usuario:**
+Como desarrollador, quiero Docker Compose para que la demo local inicie con un solo comando.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[DEP-03] Epic: 9: Docker, AWS, and Deployment]
+**Historia de usuario:**
+Como evaluador, quiero documentación del despliegue en AWS para justificar el despliegue del backend, datos y procesamiento.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[DEP-04] Epic: 9: Docker, AWS, and Deployment]
+**Historia de usuario:**
+Como operador, quiero logs y pruebas de salud (health checks) para verificar el estado de los servicios.
+
+**Prioridad:** Should
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[DEP-05] Epic: 9: Docker, AWS, and Deployment]
+**Historia de usuario:**
+Como evaluador, quiero el despliegue del frontend en Vercel documentado para justificar la decisión de hosting de Next.js.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[DEP-06] Epic: 9: Docker, AWS, and Deployment]
+**Historia de usuario:**
+Como equipo, quiero reglas de control de costos para AWS para evitar cargos mensuales innecesarios en el proyecto.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[DOC-01] Epic: 10: Testing, Documentation, and Presentation]
+**Historia de usuario:**
+Como evaluador, quiero un README completo para poder entender y ejecutar el proyecto.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[TEST-01] Epic: 10: Testing, Documentation, and Presentation]
+**Historia de usuario:**
+Como desarrollador, quiero pruebas (tests) de nodos de Kedro para que las transformaciones sean confiables.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[TEST-02] Epic: 10: Testing, Documentation, and Presentation]
+**Historia de usuario:**
+Como desarrollador backend, quiero pruebas (tests) de API para que los endpoints se comporten correctamente.
+
+**Prioridad:** Should
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[TEST-03] Epic: 10: Testing, Documentation, and Presentation]
+**Historia de usuario:**
+Como desarrollador frontend, quiero un checklist manual de QA para verificar los flujos de la demo.
+
+**Prioridad:** Should
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[TEST-04] Epic: 10: Testing, Documentation, and Presentation]
+**Historia de usuario:**
+Como evaluador, quiero una estrategia de pruebas automatizadas para que la evidencia de backend, frontend, Kedro, seguridad y Docker esté organizada.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[PRES-01] Epic: 10: Testing, Documentation, and Presentation]
+**Historia de usuario:**
+Como presentador, quiero diapositivas y un guion de demo para que la defensa de 15 minutos sea clara.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[Milestone] Epic: 10: Testing, Documentation, and Presentation]
+**Historia de usuario:**
+Due date suggestion
+
+**Prioridad:** Evidence
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[M1: Scope and setup complete] Epic: 10: Testing, Documentation, and Presentation]
+**Historia de usuario:**
+End of week 1
+
+**Prioridad:** Board, repo structure, assigned sections, first docs
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[M2: Pipelines and data validation complete] Epic: 10: Testing, Documentation, and Presentation]
+**Historia de usuario:**
+End of week 2
+
+**Prioridad:** Kedro run, notebooks, validation reports
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[M3: API, dashboard, orchestration, Docker complete] Epic: 10: Testing, Documentation, and Presentation]
+**Historia de usuario:**
+End of week 3
+
+**Prioridad:** Swagger, dashboard, Airflow, Docker logs
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[M4: Final documentation and presentation complete] Epic: 10: Testing, Documentation, and Presentation]
+**Historia de usuario:**
+End of week 4
+
+**Prioridad:** Slides, README, docs, final screenshots
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[DATA-03] Epic: 2: NHANES Data and Data Dictionary]
+**Historia de usuario:**
+Como miembro del equipo, quiero documentar las limitaciones en la disponibilidad de 2019-2020 para que las suposiciones sean transparentes.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[INTEGRACIÓN] Enviar datos de Kedro a Postgres (Esperando por equipo ETL)]
+**Descripción:** Todo el Backend y Frontend está listo y esperando datos. Dependemos de que las tarjetas `[ETL-03]`, `[ETL-04]` y `[ETL-05]` se terminen para poder poblar el Dashboard visual.
+[[INFRAESTRUCTURA] Instrucciones de Conexión a Base de Datos]
+**¡Hola equipo de Backend (Spring Boot)!** 
+
+Ya está configurada la infraestructura de Base de Datos para conectar sus endpoints de Spring Boot con los datos científicos de Kedro.
+
+### Instrucciones para levantar la Base de Datos Local:
+1. Abran su terminal en la raíz del proyecto.
+2. Ejecuten: `docker compose up -d`
+3. ¡Listo! Docker descargará PostgreSQL y ejecutará nuestro script de inicialización de forma automática.
+
+### Credenciales para el `application.properties` de Spring Boot:
+* **URL:** `jdbc:postgresql://localhost:5432/nhanes_analytics`
+* **Usuario:** `postgres`
+* **Contraseña:** `admin`
+
+### Estructura del Data Mart (Tabla Gold)
+La tabla principal a la que deben mapear sus entidades JPA se llama `gold_analytics_master`. Ya está optimizada con índices para consultas rápidas del Frontend.
+Tiene la llave primaria `seqn`, variables demográficas (`survey_cycle`, `age_years`, `gender`, `longevity_group`), y las columnas para los scores de salud que estamos desarrollando en Kedro (`healthy_aging_score`, etc).
+
+Una vez que Kedro envíe los datos a esta tabla, ustedes solo deben construir los endpoints GET para que Next.js los consuma.
+
+---
+
+> **¡ACTUALIZACIÓN IMPORTANTE!** La arquitectura completa (Frontend + Backend + Base de Datos) ya está levantada con Docker Compose.
+>
+> **Atención equipo de Datos (Kedro):** Para inyectar los datos finales desde su pipeline de Python hacia la base de datos, deben usar estas credenciales:
+> - **Host:** `localhost`
+> - **Puerto:** `5434` *(Ojo: lo cambiamos para que no haya conflictos)*
+> - **Usuario:** `postgres`
+> - **Contraseña:** `admin`
+> - **Base de datos:** `nhanes_analytics`
+[[ESTÁNDAR EQUIPO] Cómo programar la Capa Gold]
+**¡Hola equipo!** La rama `develop` acaba de ser actualizada con la arquitectura de la **Capa Gold**. Para que mantengamos el rigor científico y nuestro código pueda unirse al final, por favor sigan este estándar al construir su capa Gold:
+
+### 1. Metodología de Imputación (Nulos)
+En los cuestionarios de NHANES verán muchos valores nulos por el diseño de la encuesta (Skip Logic). 
+**Nuestra regla como equipo es:** Si una variable médica de riesgo es nula (porque el paciente saltó la pregunta), asumimos que el riesgo es `0` (Ausencia de síntoma). No eliminen las filas con nulos, o perderemos demasiados datos.
+
+### 2. Estándar Matemático (Frailty Index)
+Para calcular sus propios scores en la Capa Gold, utilizaremos el modelo estándar del **Índice de Acumulación de Déficit** (Frailty Index). 
+* **Regla:** Definan cuántas enfermedades evaluarán (ej. N=5). Por cada enfermedad presente, sumen 1 punto de "déficit" al paciente.
+* **Cálculo Final:** Score de salud = `1.0 - (Déficits Acumulados / Total de variables evaluadas)`. 
+
+### 3. Código Disponible
+Pueden ir a `src/nhanes_pipeline/pipelines/data_science_member1/nodes.py` para ver exactamente cómo lo programé en Python usando NumPy (`np.where`). Copien ese estilo arquitectónico para sus propias ramas. 
+
+¡Mucho éxito con sus algoritmos! Cuando terminen, uniremos todo en un Data Mart final.
+
+---
+
+> **Actualización Capa Gold:** El Backend ya generó automáticamente la estructura de la base de datos (mediante Hibernate).
+> Ya existe la tabla `longevity_metric` en PostgreSQL. Cuando su pipeline de Kedro llegue a la capa Gold, su último nodo simplemente debe enviar (o sobreescribir) el DataFrame final directamente a esa tabla en PostgreSQL, respetando las columnas (seqn, age, gender, etc.). ¡No tienen que crear la tabla desde cero, solo insertar los datos!
+[[PM-03] Epic: 1: Project Management and Collaboration]
+**Historia de usuario:**
+Como evaluador, quiero evidencia de ramas, pull requests, issues y commits para poder evaluar la colaboración.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[URGENTE] INSTRUCCIONES PARA EL EQUIPO: CÓMO USAR KEDRO]
+**Hola equipo!** La arquitectura base de Kedro ya está implementada y alojada en la rama `develop`. Para que no nos pisemos el código, por favor sigan estrictamente estos pasos:
+
+### 1. Preparar el repositorio local
+Abran la terminal y asegúrense de traer lo último:
+`git checkout develop`
+`git pull origin develop`
+
+### 2. Crear su propia rama
+NUNCA programen directamente en develop. Creen su rama:
+Claudio: `git checkout -b feat/claudio-data`
+Matías: `git checkout -b feat/matias-data`
+
+### 3. Activar Kedro
+Entren a la carpeta de kedro y activen el ambiente:
+`cd kedro-pipeline`
+`.\.venv\Scripts\activate` (en Windows) o `source .venv/bin/activate` (en Mac/Linux)
+`pip install -r requirements.txt`
+
+### 4. Dónde poner el código de Descarga (Ingesta)
+NO CREEN SCRIPTS SUELTOS. Abran el archivo:
+`src/nhanes_pipeline/pipelines/data_ingestion/nodes.py`
+Ahí verán la función `download_nhanes_files`. Simplemente agreguen las URLs de los archivos XPT que les tocó procesar a ustedes dentro de la lista que ya existe. Yo (Martín) ya puse las mías de Demografía y Cuestionarios.
+
+### 5. Dónde poner el código de Cruce y Limpieza
+Dentro de `src/nhanes_pipeline/pipelines/` verán la carpeta `data_processing_member1`. 
+1. Dupliquen o imiten esa estructura para crear `data_processing_member2` (Claudio) y `data_processing_member3` (Matías).
+2. Escriban su lógica de limpieza en sus respectivos `nodes.py`.
+3. Registren su pipeline en `src/nhanes_pipeline/pipeline_registry.py`.
+
+### 6. Ejecutar todo
+Cuando terminen, prueben su código corriendo el comando mágico desde la carpeta kedro-pipeline:
+`kedro run`
+
+Si corre sin errores, hagan *Commit*, *Push* de su rama a GitHub, y avisen para fusionarlo a `develop`.
+[[ETL-01] Epic: 3: Kedro ETL and Reproducibility]
+**Historia de usuario:**
+Como desarrollador, quiero un proyecto Kedro con `.venv` y dependencias fijadas para que todos los miembros puedan reproducir el pipeline.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[DATA-01] Epic: 2: NHANES Data and Data Dictionary]
+**Historia de usuario:**
+Como ingeniero de datos, quiero identificar Datos, Documentación y Codebooks para cada sección de NHANES seleccionada para que los datasets descargados sigan la estructura oficial.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[DATA-02] Epic: 2: NHANES Data and Data Dictionary]
+**Historia de usuario:**
+Como analista de datos, quiero un diccionario de datos con variables, etiquetas, dominios y reglas de valores nulos para que las transformaciones sean explicables.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[DATA-04] Epic: 2: NHANES Data and Data Dictionary]
+**Historia de usuario:**
+Como ingeniero de datos, quiero descarga de datos reales para que los resultados sean reproducibles.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[ETL-02] Epic: 3: Kedro ETL and Reproducibility]
+**Historia de usuario:**
+Como miembro del equipo, quiero notebooks para mis secciones asignadas para que la exploración quede documentada.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[ETL-03] Epic: 3: Kedro ETL and Reproducibility]
+**Historia de usuario:**
+Como ingeniero de datos, quiero pipelines de Kedro para ingesta, validación, transformación, ingeniería de características y publicación para que el ETL sea modular.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[ETL-04] Epic: 3: Kedro ETL and Reproducibility]
+**Historia de usuario:**
+Como ingeniero de datos, quiero validaciones de esquema, rangos, valores nulos y cruces (joins) para medir la calidad de los datos.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[ETL-05] Epic: 3: Kedro ETL and Reproducibility]
+**Historia de usuario:**
+Como analista, quiero características (features) de longevidad generadas en Kedro para que los resultados del dashboard sean reproducibles.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[ETL-06] Epic: 3: Kedro ETL and Reproducibility]
+**Historia de usuario:**
+Como evaluador, quiero reportes de registros rechazados para que el manejo de errores sea visible.
+
+**Prioridad:** Should
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[DB-02] Epic: 6: PostgreSQL and Storage]
+**Historia de usuario:**
+Como ingeniero de datos, quiero capas bronze, silver y gold en S3 o data lake local para que los archivos crudos y analíticos estén organizados.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[DOC-02] Epic: 10: Testing, Documentation, and Presentation]
+**Historia de usuario:**
+Como evaluador, quiero documentos de arquitectura, API, diccionario de datos, pipeline, despliegue, manual de usuario y testing para que la solución sea justificable.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+[[PM-01] Epic: 1: Project Management and Collaboration]
+**Historia de usuario:**
+Como miembro del equipo, quiero un tablero de Trello con tareas, responsables, etiquetas y listas de estado para que la evidencia de colaboración sea visible.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+
+- [ ✅ ] Tarea implementada y probada
+- [ ✅ ] Código subido y revisado (Pull Request)
+- [ ✅ ] Documentación actualizada si aplica
+
+**Responsable:** Martín Papic
+**Sección NHANES / ciclo:** Documentación
+**Evidencia esperada:** Autodocumentada.
+[[PM-02] Epic: 1: Project Management and Collaboration]
+**Historia de usuario:**
+Como miembro del equipo, quiero que se asignen secciones y ciclos de NHANES para que las responsabilidades estén claras.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
+
+**Asignaciones Confirmadas:**
+
+- **Martín Papic**: Demographics Data + Questionnaire Data
+- **Claudio Bastián González**: Dietary Data + Examination Data
+- **Matías Retamal**: Laboratory Data + Limited Access
+
+Los años que elegimos finalmente para todo el proyecto (y los que acabamos de descargar exitosamente) son los ciclos regulares **2015-2016** y **2017-2018**.
+
+Elegimos estos dos ciclos específicamente (y descartamos 2019-2020) porque nos aseguran tener dos periodos de tiempo perfectamente limpios, de dos años completos cada uno, sin que la recolección de datos esté contaminada ni interrumpida estadísticamente por la pandemia del COVID-19.
+[[PM-04] Epic: 1: Project Management and Collaboration]
+**Historia de usuario:**
+Como equipo, queremos un plan semanal para poder terminar en 4 semanas.
+
+**Prioridad:** Must
+
+**Criterios de aceptación:**
+- [ ] Tarea implementada y probada
+- [ ] Código subido y revisado (Pull Request)
+- [ ] Documentación actualizada si aplica
+
+**Responsable:** (Asignar)
+**Sección NHANES / ciclo:** (Indicar si aplica)
+**Evidencia esperada:** (Adjuntar captura/enlace)
