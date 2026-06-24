@@ -6,8 +6,8 @@ export async function GET(request: Request) {
   const size = searchParams.get("size") || "2000";
   const sort = searchParams.get("sort") || "surveyCycle,desc";
 
-  // Use the internal Docker network name for the backend
-  const backendUrl = `http://backend:8081/api/v1/analytics?page=${page}&size=${size}&sort=${sort}`;
+  // Use the local network name for the backend exposed from Docker
+  const backendUrl = `http://127.0.0.1:8081/api/v1/analytics?page=${page}&size=${size}&sort=${sort}`;
 
   try {
     const res = await fetch(backendUrl, { cache: "no-store" });

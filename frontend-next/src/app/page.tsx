@@ -87,7 +87,8 @@ function StatCard({ label, value, sub, accent }: { label: string; value: string 
   );
 }
 
-const TABS = ["Resumen", "Análisis", "Tabla"] as const;
+// NUEVAS TABS: El Viaje del Paciente
+const TABS = ["Nutrición (M1)", "Riesgo (M2)", "Clínica (M3)", "Simulador ML"] as const;
 type Tab = typeof TABS[number];
 
 const PLOT_LAYOUT_BASE = {
@@ -105,8 +106,40 @@ export default function Home() {
   const [allData, setAllData] = useState<LongevityRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingMsg, setLoadingMsg] = useState("Conectando al backend...");
-  const [activeTab, setActiveTab] = useState<Tab>("Resumen");
+  const [activeTab, setActiveTab] = useState<Tab>("Nutrición (M1)");
   const [page, setPage] = useState(0);
+
+  // ML Simulator States
+  const [simAge, setSimAge] = useState<number>(45);
+  const [simGender, setSimGender] = useState<string>("Mujer");
+  const [simNutrition, setSimNutrition] = useState<number>(80);
+  const [simBmi, setSimBmi] = useState<number>(24);
+  const [simGlucose, setSimGlucose] = useState<number>(90);
+  const [simResult, setSimResult] = useState<any>(null);
+  const [simLoading, setSimLoading] = useState<boolean>(false);
+
+  const handleSimulate = async () => {
+    setSimLoading(true);
+    try {
+      const res = await fetch("/api/proxy/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          ageYears: simAge, 
+          gender: simGender, 
+          nutritionalQualityScore: simNutrition,
+          bmi: simBmi,
+          glucose: simGlucose
+        })
+      });
+      const data = await res.json();
+      setSimResult(data);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setSimLoading(false);
+    }
+  };
 
   // Filters
   const [filterGroup, setFilterGroup] = useState("Todos");
@@ -127,7 +160,7 @@ export default function Home() {
     fetch(`/api/proxy/member3`)
       .then((res) => res.json())
       .then((json) => {
-        setMember3Data(json || []);
+        setMember3Data(Array.isArray(json) ? json : (json?.content ? json.content : []));
         setLoadingM3(false);
       })
       .catch((err) => {
@@ -179,7 +212,7 @@ export default function Home() {
     return valid.length > 3000 ? valid.filter((_, i) => i % Math.ceil(valid.length / 3000) === 0) : valid;
   }, [filtered]);
 
-  // 2. Bar: avg scores by survey cycle (from allData, not filtered, to always show full timeline)
+  // 2. Bar: avg scores by survey cycle
   const cycleStats = useMemo(() => {
     const cycles = Array.from(new Set(allData.map(r => r.surveyCycle))).sort();
     return cycles.map(cycle => {
@@ -241,25 +274,20 @@ export default function Home() {
 
   // ── Render ─────────────────────────────────────────────────────────────
   return (
-    <main className="min-h-screen bg-gray-900 text-white">
+    <main className="min-h-screen bg-gray-900 text-white pb-12">
       {/* Top bar */}
       <div className="border-b border-gray-800 px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-end justify-between flex-wrap gap-4">
           <div>
             <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">
-              NHANES Longevity Dashboard
+              El Viaje del Paciente (NHANES)
             </h1>
-            <p className="text-gray-400 text-sm mt-0.5">Análisis de Nutrición y Riesgo Cardiovascular — Miembros 1 y 2 (Claudio y Martín)</p>
+            <p className="text-gray-400 text-sm mt-0.5">Arquitectura de Datos y Machine Learning — Claudio, Martín y Matías</p>
           </div>
           {!loading && (
             <div className="flex items-center gap-2 text-xs text-gray-400">
               <span className="w-2 h-2 rounded-full bg-teal-400 inline-block"></span>
-              {allData.length.toLocaleString()} registros cargados
-              {filterActive && (
-                <span className="ml-2 px-2 py-0.5 bg-teal-900/50 text-teal-300 border border-teal-700/50 rounded-full">
-                  {filtered.length.toLocaleString()} filtrados
-                </span>
-              )}
+              {allData.length.toLocaleString()} registros poblacionales
             </div>
           )}
         </div>
@@ -276,33 +304,6 @@ export default function Home() {
         )}
 
         {!loading && (<>
-
-          {/* Stat cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <StatCard label="Pacientes" value={filtered.length.toLocaleString()} sub={filterActive ? `de ${allData.length.toLocaleString()} totales` : "Dataset completo"} accent="#2dd4bf" />
-            <StatCard label="Riesgo cardio prom." value={avg("cardioRiskScore")} sub="Escala 0–100" accent="#f97316" />
-            <StatCard label="Calidad nutricional prom." value={avg("nutritionalQualityScore")} sub="Escala 0–100" accent="#22c55e" />
-            <StatCard label="Pacientes críticos" value={filterActive ? filtered.filter(r => (r.cardioRiskScore ?? 0) > 80 && (r.nutritionalQualityScore ?? 100) < 40).length : criticalCount} sub="Cardio >80 y Nutrición <40" accent="#ef4444" />
-          </div>
-
-          {/* Critical banner */}
-          {criticalCount > 0 && (
-            <div className="bg-red-950/60 border border-red-700/50 rounded-xl p-4 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="text-red-400 text-xl">⚠</span>
-                <div>
-                  <p className="text-red-300 font-semibold text-sm">{criticalCount} pacientes en riesgo crítico en el dataset completo</p>
-                  <p className="text-red-500 text-xs">Riesgo cardiovascular alto combinado con dieta deficiente</p>
-                </div>
-              </div>
-              <button
-                onClick={() => { setShowCritical(v => !v); setFilterGroup("Todos"); setFilterCycle("Todos"); setFilterGender("Todos"); }}
-                className={`text-xs px-4 py-2 rounded-lg border transition-colors ${showCritical ? "bg-red-700 border-red-600 text-white" : "border-red-700 text-red-300 hover:bg-red-900/40"}`}
-              >
-                {showCritical ? "Ver todos" : "Filtrar críticos"}
-              </button>
-            </div>
-          )}
 
           {/* Global filters bar */}
           <div className="bg-gray-800 rounded-xl px-5 py-4 border border-gray-700">
@@ -350,36 +351,163 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Tabs */}
+          {/* Tabs Nav */}
           <div className="flex gap-1 border-b border-gray-700">
-            {TABS.map(tab => (
-              <button key={tab} onClick={() => setActiveTab(tab)}
-                className={`px-5 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px ${activeTab === tab ? "border-teal-500 text-teal-400" : "border-transparent text-gray-400 hover:text-gray-200"
+            {TABS.map((tab, idx) => {
+              // Add a subtle gradient text color for the ML tab
+              const isML = tab === "Simulador ML";
+              return (
+                <button key={tab} onClick={() => setActiveTab(tab)}
+                  className={`px-6 py-3 text-sm font-semibold transition-all border-b-2 -mb-px flex items-center gap-2
+                  ${activeTab === tab 
+                    ? isML ? "border-purple-500 text-purple-400" : "border-teal-500 text-teal-400" 
+                    : "border-transparent text-gray-400 hover:text-gray-200"
                   }`}>
-                {tab}
-              </button>
-            ))}
+                  <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${activeTab === tab ? (isML ? 'bg-purple-900/50' : 'bg-teal-900/50') : 'bg-gray-800'}`}>
+                    {idx + 1}
+                  </span>
+                  {tab}
+                </button>
+              )
+            })}
           </div>
 
-          {/* ── TAB: Resumen ─────────────────────────────────────────── */}
-          {activeTab === "Resumen" && (
-            <div className="space-y-6">
+          {/* ── TAB 1: Nutrición (M1) ─────────────────────────────────────────── */}
+          {activeTab === "Nutrición (M1)" && (
+            <div className="space-y-6 animate-fade-in-up">
+              
+              <div className="mb-2 mt-4">
+                <h2 className="text-xl font-bold text-teal-400">1. Evaluación Nutricional y Estilo de Vida</h2>
+                <p className="text-sm text-gray-400">Responsable: Claudio. Fase inicial del viaje del paciente donde exploramos los hábitos dietarios y la calidad nutricional, la primera línea de defensa de la longevidad.</p>
+              </div>
 
-              {/* Row 1: Scatter + Bar scores por ciclo */}
+              {/* Stat cards Nutrición */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <StatCard label="Pacientes Registrados" value={filtered.length.toLocaleString()} sub={filterActive ? `Filtrados` : "Dataset completo"} accent="#2dd4bf" />
+                <StatCard label="Calidad Nutricional Promedio" value={avg("nutritionalQualityScore")} sub="Escala 0–100 (HEI)" accent="#22c55e" />
+                <StatCard label="Edad Promedio" value={avg("ageYears")} sub="Años de vida" accent="#60a5fa" />
+              </div>
+
+              {/* Row 1: Nutrición Graphs */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="bg-gray-800 rounded-xl p-5 border border-gray-700">
-                  <h3 className="text-sm font-semibold mb-1">Nutrición vs Riesgo cardiovascular</h3>
-                  <p className="text-xs text-gray-500 mb-3">{scatterSample.length.toLocaleString()} pacientes — rojo: críticos</p>
+                  <h3 className="text-sm font-semibold mb-1">Distribución de Calidad Nutricional</h3>
+                  <p className="text-xs text-gray-500 mb-3">Histograma poblacional</p>
+                  <Plot
+                    data={[{
+                      x: filtered.map(r => r.nutritionalQualityScore).filter(v => v != null) as number[],
+                      type: "histogram",
+                      nbinsx: 25,
+                      marker: { color: "#22c55e", opacity: 0.75 },
+                      name: "Pacientes",
+                    }]}
+                    layout={{ ...PLOT_LAYOUT_BASE, height: 260, xaxis: { ...AXIS_STYLE, title: { text: "Nutritional Quality Score" } }, yaxis: { ...AXIS_STYLE, title: { text: "Pacientes" } } }}
+                    config={{ displayModeBar: false, responsive: true }} style={{ width: "100%" }}
+                  />
+                </div>
+
+                <div className="bg-gray-800 rounded-xl p-5 border border-gray-700">
+                  <h3 className="text-sm font-semibold mb-1">Distribución de Edades por Grupo de Longevidad</h3>
+                  <p className="text-xs text-gray-500 mb-3">Superposición demográfica</p>
+                  <Plot
+                    data={ageHistTraces}
+                    layout={{ ...PLOT_LAYOUT_BASE, height: 260, barmode: "overlay", xaxis: { ...AXIS_STYLE, title: { text: "Edad (años)" } }, yaxis: { ...AXIS_STYLE, title: { text: "Pacientes" } }, legend: { font: { color: "#9ca3af", size: 10 }, orientation: "h", y: -0.28 } }}
+                    config={{ displayModeBar: false, responsive: true }} style={{ width: "100%" }}
+                  />
+                </div>
+              </div>
+
+              {/* Data Table Subset for Nutrition */}
+              <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                <div className="flex items-center justify-between mb-5">
+                  <h3 className="text-sm font-semibold">Muestra de Datos Poblacionales</h3>
+                  <button onClick={() => exportCSV(filtered)} className="text-xs px-3 py-1.5 rounded-lg border border-teal-700 text-teal-300 hover:bg-teal-900/30">
+                    Exportar CSV
+                  </button>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="border-b border-gray-700 text-gray-400 uppercase text-xs">
+                        <th className="p-3">SEQN</th>
+                        <th className="p-3">Edad</th>
+                        <th className="p-3">Género</th>
+                        <th className="p-3">Grupo Longevidad</th>
+                        <th className="p-3 text-right">Nutritional Quality</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {pageRows.map(record => (
+                        <tr key={record.seqn} className="border-b border-gray-700/50 hover:bg-gray-700/30">
+                          <td className="p-3 font-mono text-gray-300 text-sm">{record.seqn}</td>
+                          <td className="p-3 text-gray-300">{record.ageYears}</td>
+                          <td className="p-3 text-gray-300">{record.gender}</td>
+                          <td className="p-3"><LongevityBadge group={record.longevityGroup} /></td>
+                          <td className="p-3"><ScoreBar value={record.nutritionalQualityScore} type="nutrition" /></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="flex items-center justify-between mt-5 pt-4 border-t border-gray-700">
+                  <span className="text-sm text-gray-400">Página {page + 1} de {totalPages}</span>
+                  <div className="flex gap-2">
+                    <button onClick={() => setPage(p => Math.max(0, p - 1))} disabled={page === 0} className="px-3 py-1 text-sm border border-gray-600 rounded-lg text-gray-300 hover:bg-gray-700 transition-colors">←</button>
+                    <button onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))} disabled={page >= totalPages - 1} className="px-3 py-1 text-sm border border-gray-600 rounded-lg text-gray-300 hover:bg-gray-700 transition-colors">→</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          )}
+
+          {/* ── TAB 2: Riesgo (M2) ─────────────────────────────────────────── */}
+          {activeTab === "Riesgo (M2)" && (
+            <div className="space-y-6 animate-fade-in-up">
+              
+              <div className="mb-2 mt-4">
+                <h2 className="text-xl font-bold text-orange-400">2. Análisis de Riesgo Cardiovascular</h2>
+                <p className="text-sm text-gray-400">Responsable: Martín. En esta etapa observamos las consecuencias epidemiológicas. ¿Cómo impactan los malos hábitos en el riesgo al corazón?</p>
+              </div>
+
+              {/* Stat cards Riesgo */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <StatCard label="Riesgo Cardio Promedio" value={avg("cardioRiskScore")} sub="Escala 0–100 (Calculadora)" accent="#f97316" />
+                <StatCard label="Pacientes en Riesgo Crítico" value={filterActive ? filtered.filter(r => (r.cardioRiskScore ?? 0) > 80 && (r.nutritionalQualityScore ?? 100) < 40).length : criticalCount} sub="Cardio >80 y Nutrición <40" accent="#ef4444" />
+              </div>
+
+              {/* Critical banner */}
+              {criticalCount > 0 && (
+                <div className="bg-red-950/60 border border-red-700/50 rounded-xl p-4 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <span className="text-red-400 text-xl">⚠</span>
+                    <div>
+                      <p className="text-red-300 font-semibold text-sm">{criticalCount} pacientes críticos localizados en el análisis de riesgo.</p>
+                      <p className="text-red-500 text-xs">Riesgo cardiovascular severo derivado de deficiencias nutricionales.</p>
+                    </div>
+                  </div>
+                  <button onClick={() => { setShowCritical(v => !v); setFilterGroup("Todos"); setFilterCycle("Todos"); setFilterGender("Todos"); }}
+                    className={`text-xs px-4 py-2 rounded-lg border transition-colors ${showCritical ? "bg-red-700 border-red-600 text-white" : "border-red-700 text-red-300 hover:bg-red-900/40"}`}>
+                    {showCritical ? "Remover filtro" : "Aislar críticos"}
+                  </button>
+                </div>
+              )}
+
+              {/* Row 1: Cardio Graphs */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-gray-800 rounded-xl p-5 border border-gray-700">
+                  <h3 className="text-sm font-semibold mb-1">Impacto: Nutrición vs Riesgo Cardiovascular</h3>
+                  <p className="text-xs text-gray-500 mb-3">Correlación directa ({scatterSample.length.toLocaleString()} muestras)</p>
                   <Plot
                     data={[{
                       x: scatterSample.map(r => r.nutritionalQualityScore),
                       y: scatterSample.map(r => r.cardioRiskScore),
                       mode: "markers", type: "scatter",
                       marker: {
-                        color: scatterSample.map(r => (r.cardioRiskScore ?? 0) > 80 && (r.nutritionalQualityScore ?? 100) < 40 ? "#ef4444" : "#2dd4bf"),
+                        color: scatterSample.map(r => (r.cardioRiskScore ?? 0) > 80 && (r.nutritionalQualityScore ?? 100) < 40 ? "#ef4444" : "#f97316"),
                         size: 5, opacity: 0.6,
                       },
-                      text: scatterSample.map(r => `SEQN: ${r.seqn}<br>Edad: ${r.ageYears}<br>${r.longevityGroup}`),
+                      text: scatterSample.map(r => `SEQN: ${r.seqn}<br>Edad: ${r.ageYears}`),
                       hovertemplate: "<b>%{text}</b><br>Nutrición: %{x}<br>Cardio: %{y}<extra></extra>",
                     }]}
                     layout={{ ...PLOT_LAYOUT_BASE, xaxis: { ...AXIS_STYLE, title: { text: "Nutritional Quality Score" } }, yaxis: { ...AXIS_STYLE, title: { text: "Cardio Risk Score" } } }}
@@ -388,80 +516,8 @@ export default function Home() {
                 </div>
 
                 <div className="bg-gray-800 rounded-xl p-5 border border-gray-700">
-                  <h3 className="text-sm font-semibold mb-1">Scores promedio por ciclo</h3>
-                  <p className="text-xs text-gray-500 mb-3">Evolución de la salud poblacional entre encuestas</p>
-                  <Plot
-                    data={[
-                      { x: cycleStats.map(c => c.cycle), y: cycleStats.map(c => c.cardio), type: "bar", name: "Cardio Risk", marker: { color: "#f97316" } },
-                      { x: cycleStats.map(c => c.cycle), y: cycleStats.map(c => c.nutrition), type: "bar", name: "Nutritional Quality", marker: { color: "#22c55e" } },
-                      { x: cycleStats.map(c => c.cycle), y: cycleStats.map(c => c.aging), type: "bar", name: "Healthy Aging", marker: { color: "#2dd4bf" } },
-                    ]}
-                    layout={{ ...PLOT_LAYOUT_BASE, barmode: "group", xaxis: { ...AXIS_STYLE }, yaxis: { ...AXIS_STYLE, range: [0, 100] }, legend: { orientation: "h", y: -0.25, font: { color: "#9ca3af", size: 10 } } }}
-                    config={{ displayModeBar: false, responsive: true }} style={{ width: "100%" }}
-                  />
-                </div>
-              </div>
-
-              {/* Row 2: Donuts */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-gray-800 rounded-xl p-5 border border-gray-700">
-                  <h3 className="text-sm font-semibold mb-1">Distribución por género</h3>
-                  <p className="text-xs text-gray-500 mb-3">Selección actual</p>
-                  <Plot
-                    data={[{
-                      values: Object.values(genderCounts),
-                      labels: Object.keys(genderCounts),
-                      type: "pie", hole: 0.55,
-                      marker: { colors: ["#60a5fa", "#f472b6"] },
-                      textinfo: "label+percent",
-                      textfont: { color: "#d1d5db", size: 11 },
-                      hovertemplate: "%{label}: %{value} pacientes<extra></extra>",
-                    }]}
-                    layout={{ ...PLOT_LAYOUT_BASE, height: 260, showlegend: false, margin: { t: 10, r: 10, b: 10, l: 10 } }}
-                    config={{ displayModeBar: false, responsive: true }} style={{ width: "100%" }}
-                  />
-                </div>
-
-                <div className="bg-gray-800 rounded-xl p-5 border border-gray-700">
-                  <h3 className="text-sm font-semibold mb-1">Distribución por grupo de longevidad</h3>
-                  <p className="text-xs text-gray-500 mb-3">Selección actual</p>
-                  <Plot
-                    data={[{
-                      values: Object.values(groupCounts),
-                      labels: Object.keys(groupCounts).map(k => k.replace("Longevidad ", "")),
-                      type: "pie", hole: 0.55,
-                      marker: { colors: ["#60a5fa", "#2dd4bf", "#a78bfa"] },
-                      textinfo: "label+percent",
-                      textfont: { color: "#d1d5db", size: 11 },
-                      hovertemplate: "%{label}: %{value} pacientes<extra></extra>",
-                    }]}
-                    layout={{ ...PLOT_LAYOUT_BASE, height: 260, showlegend: false, margin: { t: 10, r: 10, b: 10, l: 10 } }}
-                    config={{ displayModeBar: false, responsive: true }} style={{ width: "100%" }}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* ── TAB: Análisis ────────────────────────────────────────── */}
-          {activeTab === "Análisis" && (
-            <div className="space-y-6">
-
-              {/* Row 1: Histogram + Box plot */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-gray-800 rounded-xl p-5 border border-gray-700">
-                  <h3 className="text-sm font-semibold mb-1">Distribución de edades por grupo</h3>
-                  <p className="text-xs text-gray-500 mb-3">Histograma — selección actual</p>
-                  <Plot
-                    data={ageHistTraces}
-                    layout={{ ...PLOT_LAYOUT_BASE, barmode: "overlay", xaxis: { ...AXIS_STYLE, title: { text: "Edad (años)" } }, yaxis: { ...AXIS_STYLE, title: { text: "Pacientes" } }, legend: { font: { color: "#9ca3af", size: 10 }, orientation: "h", y: -0.28 } }}
-                    config={{ displayModeBar: false, responsive: true }} style={{ width: "100%" }}
-                  />
-                </div>
-
-                <div className="bg-gray-800 rounded-xl p-5 border border-gray-700">
-                  <h3 className="text-sm font-semibold mb-1">Riesgo cardiovascular por grupo</h3>
-                  <p className="text-xs text-gray-500 mb-3">Box plot — mediana, IQR y outliers</p>
+                  <h3 className="text-sm font-semibold mb-1">Severidad del Riesgo por Longevidad</h3>
+                  <p className="text-xs text-gray-500 mb-3">Box plot de Riesgo Cardio</p>
                   <Plot
                     data={boxTraces}
                     layout={{ ...PLOT_LAYOUT_BASE, xaxis: { ...AXIS_STYLE }, yaxis: { ...AXIS_STYLE, title: { text: "Cardio Risk Score" }, range: [0, 105] }, showlegend: false }}
@@ -470,217 +526,196 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Row 2: Nutritional quality histogram */}
-              <div className="bg-gray-800 rounded-xl p-5 border border-gray-700">
-                <h3 className="text-sm font-semibold mb-1">Distribución de calidad nutricional</h3>
-                <p className="text-xs text-gray-500 mb-3">Todos los pacientes de la selección actual</p>
-                <Plot
-                  data={[{
-                    x: filtered.map(r => r.nutritionalQualityScore).filter(v => v != null) as number[],
-                    type: "histogram",
-                    nbinsx: 25,
-                    marker: { color: "#22c55e", opacity: 0.75 },
-                    name: "Pacientes",
-                  }]}
-                  layout={{ ...PLOT_LAYOUT_BASE, height: 220, xaxis: { ...AXIS_STYLE, title: { text: "Nutritional Quality Score" } }, yaxis: { ...AXIS_STYLE, title: { text: "Pacientes" } } }}
-                  config={{ displayModeBar: false, responsive: true }} style={{ width: "100%" }}
-                />
-              </div>
             </div>
           )}
 
-          {/* ── TAB: Tabla ───────────────────────────────────────────── */}
-          {activeTab === "Tabla" && (
-            <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
-              <div className="flex items-center justify-between mb-5">
-                <h2 className="text-lg font-semibold">
-                  {showCritical ? "Pacientes en riesgo crítico" : "Registros procesados"}
-                  <span className="ml-2 text-sm text-gray-400 font-normal">
-                    ({filtered.length.toLocaleString()} total)
-                  </span>
+          {/* ── TAB 3: Clínica (M3) ─────────────────────────────────────────── */}
+          {activeTab === "Clínica (M3)" && (
+            <div className="space-y-6 animate-fade-in-up">
+              
+              <div className="mb-2 mt-4">
+                <h2 className="text-xl font-bold text-purple-400">3. Biomarcadores y Laboratorio (Capa Gold)</h2>
+                <p className="text-sm text-gray-400">Responsable: Matías. El interior del paciente. Resultados de exámenes de sangre (Glucosa, Colesterol) que conforman el Índice de Longevidad Clínica.</p>
+              </div>
+
+              {loadingM3 ? (
+                <div className="flex justify-center items-center h-48">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500"></div>
+                </div>
+              ) : member3Data.length === 0 ? (
+                <div className="text-center p-6 text-gray-500 border border-gray-700 rounded-xl bg-gray-800">
+                  No hay datos clínicos disponibles.
+                </div>
+              ) : (
+                <>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow-lg">
+                      <div className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Índice de Riesgo Clínico</div>
+                      <div className="text-3xl font-bold text-purple-400 mt-2">
+                        {(member3Data.reduce((acc, r) => acc + (r.longevity_risk_index ?? r.longevityRiskIndex ?? 0), 0) / member3Data.length).toFixed(2)}%
+                      </div>
+                      <div className="text-xs text-gray-500 mt-2">Medida compuesta de 8 biomarcadores NHANES</div>
+                    </div>
+                    <div className="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow-lg">
+                      <div className="text-xs text-gray-400 uppercase tracking-wider font-semibold">HbA1c Promedio</div>
+                      <div className="text-3xl font-bold text-teal-400 mt-2">
+                        {(member3Data.reduce((acc, r) => acc + (r.LBXGH ?? r.lbxgh ?? 0), 0) / member3Data.length).toFixed(2)}%
+                      </div>
+                      <div className="text-xs text-gray-500 mt-2">Hemoglobina glicosilada promedio en sangre</div>
+                    </div>
+                    <div className="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow-lg">
+                      <div className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Colesterol Total Promedio</div>
+                      <div className="text-3xl font-bold text-blue-400 mt-2">
+                        {(member3Data.reduce((acc, r) => acc + (r.LBXSCH ?? r.lbxsch ?? 0), 0) / member3Data.length).toFixed(2)} mg/dL
+                      </div>
+                      <div className="text-xs text-gray-500 mt-2">Nivel de lípidos global de la muestra</div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div className="bg-gray-800 p-5 rounded-xl border border-gray-700">
+                      <h3 className="text-sm font-semibold mb-3 text-gray-300">Tiers de Riesgo Biológico</h3>
+                      <Plot
+                        data={[{
+                            type: 'bar',
+                            x: ['Bajo', 'Moderado', 'Alto', 'Crítico'],
+                            y: [
+                              member3Data.filter(r => (r.risk_tier ?? r.riskTier) === 'Low').length,
+                              member3Data.filter(r => (r.risk_tier ?? r.riskTier) === 'Moderate').length,
+                              member3Data.filter(r => (r.risk_tier ?? r.riskTier) === 'High').length,
+                              member3Data.filter(r => (r.risk_tier ?? r.riskTier) === 'Critical').length
+                            ],
+                            marker: { color: ['#2dd4bf', '#3b82f6', '#a855f7', '#ef4444'] }
+                        }]}
+                        layout={{ ...PLOT_LAYOUT_BASE, xaxis: { ...AXIS_STYLE }, yaxis: { ...AXIS_STYLE, title: {text: "Pacientes"} } }}
+                        config={{ displayModeBar: false }} style={{ width: "100%" }}
+                      />
+                    </div>
+
+                    <div className="bg-gray-800 p-5 rounded-xl border border-gray-700">
+                      <h3 className="text-sm font-semibold mb-3 text-gray-300">Glucosa vs. Índice de Riesgo Metabólico</h3>
+                      <Plot
+                        data={[{
+                            x: member3Data.map(r => r.LBXGH ?? r.lbxgh),
+                            y: member3Data.map(r => r.longevity_risk_index ?? r.longevityRiskIndex),
+                            mode: 'markers', type: 'scatter',
+                            marker: { color: '#a855f7', size: 6, opacity: 0.7 }
+                        }]}
+                        layout={{ ...PLOT_LAYOUT_BASE, xaxis: { ...AXIS_STYLE, title: { text: 'HbA1c (%)' } }, yaxis: { ...AXIS_STYLE, title: { text: 'Índice de Riesgo (%)' } } }}
+                        config={{ displayModeBar: false }} style={{ width: "100%" }}
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+
+            </div>
+          )}
+
+          {/* ── TAB 4: Simulador ML ─────────────────────────────────────────── */}
+          {activeTab === "Simulador ML" && (
+            <div className="animate-fade-in-up mt-4">
+              
+              <div className="mb-6 max-w-4xl mx-auto">
+                <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-400">
+                  4. Predicción Asistida por Inteligencia Artificial
                 </h2>
-                <button
-                  onClick={() => exportCSV(filtered)}
-                  className="flex items-center gap-2 text-xs px-4 py-2 rounded-lg border border-teal-700 text-teal-300 hover:bg-teal-900/30 transition-colors"
-                >
-                  ↓ Exportar CSV ({filtered.length.toLocaleString()})
-                </button>
+                <p className="text-sm text-gray-400 mt-2">
+                  La integración final. El modelo <strong>TPOT AutoML</strong> entrenado con Kedro cruza los hábitos alimenticios (M1), los riesgos demográficos (M2) y los biomarcadores clínicos (M3) para generar una inferencia en tiempo real.
+                </p>
               </div>
 
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="border-b border-gray-700 text-gray-400 uppercase text-xs">
-                      <th className="p-3">SEQN</th>
-                      <th className="p-3">Ciclo</th>
-                      <th className="p-3">Edad</th>
-                      <th className="p-3">Género</th>
-                      <th className="p-3">Grupo Longevidad</th>
-                      <th className="p-3 text-right">Healthy Aging</th>
-                      <th className="p-3 text-right">Cardio Risk</th>
-                      <th className="p-3 text-right">Nutritional Quality</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {pageRows.map(record => (
-                      <tr key={record.seqn}
-                        className={`border-b border-gray-700/50 transition-colors ${(record.cardioRiskScore ?? 0) > 80 && (record.nutritionalQualityScore ?? 100) < 40
-                            ? "bg-red-950/20 hover:bg-red-950/30"
-                            : "hover:bg-gray-700/30"
-                          }`}>
-                        <td className="p-3 font-mono text-gray-300 text-sm">{record.seqn}</td>
-                        <td className="p-3 text-sm text-gray-300">{record.surveyCycle}</td>
-                        <td className="p-3 text-gray-300">{record.ageYears}</td>
-                        <td className="p-3 text-gray-300">{record.gender}</td>
-                        <td className="p-3"><LongevityBadge group={record.longevityGroup} /></td>
-                        <td className="p-3"><ScoreBar value={record.healthyAgingScore} type="aging" /></td>
-                        <td className="p-3"><ScoreBar value={record.cardioRiskScore} type="cardio" /></td>
-                        <td className="p-3"><ScoreBar value={record.nutritionalQualityScore} type="nutrition" /></td>
-                      </tr>
-                    ))}
-                    {pageRows.length === 0 && (
-                      <tr><td colSpan={8} className="p-6 text-center text-gray-500">Sin resultados para los filtros seleccionados.</td></tr>
+              <div className="bg-gray-800 rounded-xl p-8 border border-gray-700 shadow-2xl max-w-4xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                  
+                  {/* Controles Clínicos Virtuales */}
+                  <div className="space-y-6">
+                    <h3 className="text-sm uppercase tracking-widest text-teal-500 font-bold mb-4">Inputs del Paciente</h3>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Edad Biológica: {simAge} años</label>
+                      <input type="range" min="20" max="85" value={simAge} onChange={e => setSimAge(Number(e.target.value))} 
+                             className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-teal-500" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Calidad de la Dieta (HEI): {simNutrition}/100</label>
+                      <input type="range" min="0" max="100" value={simNutrition} onChange={e => setSimNutrition(Number(e.target.value))} 
+                             className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-green-500" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">BMI (Índice de Masa Corporal): {simBmi}</label>
+                      <input type="range" min="15" max="50" value={simBmi} onChange={e => setSimBmi(Number(e.target.value))} 
+                             className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-orange-500" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Glucosa en Sangre: {simGlucose} mg/dL</label>
+                      <input type="range" min="60" max="250" value={simGlucose} onChange={e => setSimGlucose(Number(e.target.value))} 
+                             className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Género</label>
+                      <div className="flex gap-4">
+                        <label className="flex items-center gap-2 cursor-pointer">
+                          <input type="radio" name="simGender" value="Hombre" checked={simGender === "Hombre"} onChange={e => setSimGender(e.target.value)} className="text-teal-500 focus:ring-teal-500" />
+                          <span className="text-gray-300">Hombre</span>
+                        </label>
+                        <label className="flex items-center gap-2 cursor-pointer">
+                          <input type="radio" name="simGender" value="Mujer" checked={simGender === "Mujer"} onChange={e => setSimGender(e.target.value)} className="text-teal-500 focus:ring-teal-500" />
+                          <span className="text-gray-300">Mujer</span>
+                        </label>
+                      </div>
+                    </div>
+                    <button onClick={handleSimulate} disabled={simLoading}
+                      className="w-full bg-gradient-to-r from-purple-600 to-teal-500 hover:from-purple-500 hover:to-teal-400 text-white font-bold py-4 px-4 rounded-xl shadow-[0_0_20px_rgba(45,212,191,0.2)] transform transition active:scale-95 disabled:opacity-50 mt-4">
+                      {simLoading ? "Procesando predicción AutoML..." : "Ejecutar Inferencia Combinada"}
+                    </button>
+                  </div>
+
+                  {/* Resultados AutoML */}
+                  <div className="bg-gray-900 rounded-xl p-6 border border-gray-700 flex flex-col justify-center items-center text-center shadow-inner relative overflow-hidden">
+                    {/* Background glow */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-teal-500/10 blur-[60px] rounded-full pointer-events-none"></div>
+
+                    {simResult ? (
+                      simResult.error ? (
+                        <p className="text-red-400">Error en el modelo: {simResult.error}</p>
+                      ) : (
+                        <div className="w-full animate-fade-in-up relative z-10">
+                          <p className="text-teal-400 text-sm uppercase tracking-widest mb-2 font-semibold">Puntaje de Longevidad Proyectado</p>
+                          <div className="text-7xl font-black mb-4 drop-shadow-lg" style={{ color: `hsl(${simResult.healthyAgingScore * 1.2}, 70%, 50%)` }}>
+                            {simResult.healthyAgingScore.toFixed(1)}
+                          </div>
+                          
+                          <div className="w-full bg-gray-800 rounded-full h-3 mb-6 overflow-hidden">
+                            <div className="h-3 transition-all duration-1000 ease-out rounded-full" 
+                                 style={{ width: `${simResult.healthyAgingScore}%`, backgroundColor: `hsl(${simResult.healthyAgingScore * 1.2}, 70%, 50%)` }}></div>
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-4 mt-8">
+                            <div className="bg-gray-800/80 p-4 rounded-xl border border-gray-700/50">
+                              <p className="text-xs text-gray-500 uppercase font-semibold">Riesgo Cardio Base</p>
+                              <p className="text-2xl font-bold text-red-400 mt-1">{simResult.cardioRiskScore.toFixed(1)}%</p>
+                            </div>
+                            <div className="bg-gray-800/80 p-4 rounded-xl border border-gray-700/50">
+                              <p className="text-xs text-gray-500 uppercase font-semibold">Motor ML</p>
+                              <p className="text-xs font-mono text-purple-400 mt-2 bg-purple-900/30 py-1 px-2 rounded">{simResult.model_type}</p>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    ) : (
+                      <div className="text-gray-500 relative z-10">
+                        <svg className="w-20 h-20 mx-auto mb-4 opacity-30 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+                        <p className="text-sm">Ajusta los controles metabólicos a la izquierda para ejecutar una inferencia en vivo contra el modelo Kedro.</p>
+                      </div>
                     )}
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="flex items-center justify-between mt-5 pt-4 border-t border-gray-700">
-                <span className="text-sm text-gray-400">Página {page + 1} de {totalPages}</span>
-                <div className="flex gap-2">
-                  <button onClick={() => setPage(p => Math.max(0, p - 1))} disabled={page === 0}
-                    className="px-4 py-1.5 text-sm rounded-lg border border-gray-600 text-gray-300 hover:bg-gray-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
-                    ← Anterior
-                  </button>
-                  <button onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))} disabled={page >= totalPages - 1}
-                    className="px-4 py-1.5 text-sm rounded-lg border border-gray-600 text-gray-300 hover:bg-gray-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
-                    Siguiente →
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>
           )}
 
         </>)}
-        
-        {/* Sección Miembro 3 - Matías Retamal (Clínicos y Longevidad) */}
-        {!loading && (
-        <div className="bg-gray-800 rounded-xl p-6 shadow-2xl border border-gray-700 mt-8">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-400">
-              Análisis Clínico y de Longevidad — Miembro 3 (Matías Retamal)
-            </h2>
-            <div className="text-sm text-gray-400">
-              {loadingM3 ? "Cargando datos clínicos..." : `${member3Data.length} registros cargados`}
-            </div>
-          </div>
-
-          {loadingM3 ? (
-            <div className="flex justify-center items-center h-48">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500"></div>
-            </div>
-          ) : member3Data.length === 0 ? (
-            <div className="text-center p-6 text-gray-500">
-              No hay datos clínicos de la capa Gold disponibles. Asegúrate de correr la pipeline de Kedro y exportar a PostgreSQL.
-            </div>
-          ) : (
-            <div>
-              {/* KPIs de laboratorio */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-700/50">
-                  <div className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Índice de Riesgo Promedio</div>
-                  <div className="text-2xl font-bold text-purple-400 mt-1">
-                    {(member3Data.reduce((acc, r) => acc + (r.longevity_risk_index ?? r.longevityRiskIndex ?? 0), 0) / member3Data.length).toFixed(2)}%
-                  </div>
-                  <div className="text-xs text-gray-500 mt-1">Medida compuesta de 8 biomarcadores</div>
-                </div>
-                <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-700/50">
-                  <div className="text-xs text-gray-400 uppercase tracking-wider font-semibold">HbA1c Promedio</div>
-                  <div className="text-2xl font-bold text-teal-400 mt-1">
-                    {(member3Data.reduce((acc, r) => acc + (r.LBXGH ?? r.lbxgh ?? 0), 0) / member3Data.length).toFixed(2)}%
-                  </div>
-                  <div className="text-xs text-gray-500 mt-1">Nivel promedio de glicosilada</div>
-                </div>
-                <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-700/50">
-                  <div className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Colesterol Total Promedio</div>
-                  <div className="text-2xl font-bold text-blue-400 mt-1">
-                    {(member3Data.reduce((acc, r) => acc + (r.LBXSCH ?? r.lbxsch ?? 0), 0) / member3Data.length).toFixed(2)} mg/dL
-                  </div>
-                  <div className="text-xs text-gray-500 mt-1">Nivel promedio de colesterol en sangre</div>
-                </div>
-              </div>
-
-              {/* Gráficos de Plotly */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Gráfico 1: Tiers de Riesgo */}
-                <div className="bg-gray-950 p-4 rounded-lg border border-gray-700/50 flex flex-col items-center">
-                  <h3 className="text-sm font-semibold mb-3 text-gray-300">Distribución de Categorías de Riesgo de Longevidad</h3>
-                  <Plot
-                    data={[
-                      {
-                        type: 'bar',
-                        x: ['Low', 'Moderate', 'High', 'Critical'],
-                        y: [
-                          member3Data.filter(r => (r.risk_tier ?? r.riskTier) === 'Low').length,
-                          member3Data.filter(r => (r.risk_tier ?? r.riskTier) === 'Moderate').length,
-                          member3Data.filter(r => (r.risk_tier ?? r.riskTier) === 'High').length,
-                          member3Data.filter(r => (r.risk_tier ?? r.riskTier) === 'Critical').length
-                        ],
-                        marker: {
-                          color: ['#2dd4bf', '#3b82f6', '#a855f7', '#ef4444'],
-                        }
-                      }
-                    ]}
-                    layout={{
-                      width: 450,
-                      height: 320,
-                      paper_bgcolor: 'rgba(0,0,0,0)',
-                      plot_bgcolor: 'rgba(0,0,0,0)',
-                      font: { color: '#9ca3af' },
-                      margin: { t: 20, b: 40, l: 40, r: 20 },
-                      xaxis: { gridcolor: '#374151' },
-                      yaxis: { gridcolor: '#374151' }
-                    }}
-                    config={{ displayModeBar: false }}
-                  />
-                </div>
-
-                {/* Gráfico 2: HbA1c vs Riesgo */}
-                <div className="bg-gray-950 p-4 rounded-lg border border-gray-700/50 flex flex-col items-center">
-                  <h3 className="text-sm font-semibold mb-3 text-gray-300">Relación: HbA1c vs. Índice de Riesgo de Longevidad</h3>
-                  <Plot
-                    data={[
-                      {
-                        x: member3Data.map(r => r.LBXGH ?? r.lbxgh),
-                        y: member3Data.map(r => r.longevity_risk_index ?? r.longevityRiskIndex),
-                        mode: 'markers',
-                        type: 'scatter',
-                        marker: {
-                          color: '#a855f7',
-                          size: 6,
-                          opacity: 0.7
-                        }
-                      }
-                    ]}
-                    layout={{
-                      width: 450,
-                      height: 320,
-                      paper_bgcolor: 'rgba(0,0,0,0)',
-                      plot_bgcolor: 'rgba(0,0,0,0)',
-                      font: { color: '#9ca3af' },
-                      margin: { t: 20, b: 40, l: 40, r: 20 },
-                      xaxis: { title: 'HbA1c (%)', gridcolor: '#374151', titlefont: { size: 12 } },
-                      yaxis: { title: 'Índice de Riesgo (%)', gridcolor: '#374151', titlefont: { size: 12 } }
-                    }}
-                    config={{ displayModeBar: false }}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-        )}
-
       </div>
     </main>
   );

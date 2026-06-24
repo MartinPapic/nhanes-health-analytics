@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const backendUrl = "http://backend:8081/api/v1/analytics/member3";
+  const backendUrl = "http://127.0.0.1:8081/api/v1/analytics/member3";
 
   try {
     const res = await fetch(backendUrl, { cache: "no-store" });

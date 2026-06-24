@@ -195,3 +195,15 @@ member3_quality_report:
 member3_postgres_status:
   type: kedro_datasets.text.TextDataset
   filepath: data/08_reporting/member3_postgres_status.txt
+
+# ==============================================================================
+# DATA SCIENCE - LONGEVITY MODEL
+# ==============================================================================
+master_longevity_dataset:
+  type: pandas.ParquetDataset
+  filepath: data/04_feature/master_longevity_dataset.parquet
+
+longevity_model:
+  type: pickle.PickleDataset
+  filepath: data/06_models/longevity_model.pkl
+

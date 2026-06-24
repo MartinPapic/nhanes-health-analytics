@@ -8,6 +8,7 @@ from nhanes_pipeline.pipelines import (
     data_processing_member2,
     data_science_member1,
     data_processing_member3,
+    data_science_longevity,
 )
 
 def register_pipelines() -> Dict[str, Pipeline]:
@@ -17,6 +18,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
     processing_member2_pipeline = data_processing_member2.create_pipeline()
     data_science_member1_pipeline = data_science_member1.create_pipeline()
     processing_member3_pipeline = data_processing_member3.create_pipeline()
+    data_science_longevity_pipeline = data_science_longevity.create_pipeline()
 
     return {
         "ingestion":       ingestion_pipeline,
@@ -24,11 +26,13 @@ def register_pipelines() -> Dict[str, Pipeline]:
         "processing_m2":   processing_member2_pipeline,
         "data_science_m1": data_science_member1_pipeline,
         "processing_m3":   processing_member3_pipeline,
+        "data_science_longevity": data_science_longevity_pipeline,
         "__default__": (
             ingestion_pipeline
             + processing_member1_pipeline
             + processing_member2_pipeline
             + data_science_member1_pipeline
             + processing_member3_pipeline
+            + data_science_longevity_pipeline
         ),
     }

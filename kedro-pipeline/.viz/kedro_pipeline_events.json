@@ -1,196 +1,21 @@
 [
   {
     "event": "before_pipeline_run",
-    "timestamp": "2026-06-23T16:50:54.411745+00:00"
+    "timestamp": "2026-06-23T23:43:57.444334+00:00"
   },
   {
     "event": "after_dataset_loaded",
-    "dataset": "ingestion_status",
-    "node_id": "f6fc63f1",
+    "dataset": "member1_gold",
+    "node_id": "e219d759",
     "status": "Available",
-    "size": 18
-  },
-  {
-    "event": "after_node_run",
-    "node": "extract_data_dictionary_node",
-    "node_id": "f47542d9",
-    "duration": 0.004932199999984732,
-    "status": "success"
-  },
-  {
-    "event": "after_dataset_saved",
-    "dataset": "member3_data_dictionary",
-    "node_id": "b6eb28a4",
-    "status": "Available",
-    "size": 1370
+    "size": 1410068
   },
   {
     "event": "after_dataset_loaded",
-    "dataset": "ingestion_status",
-    "node_id": "f6fc63f1",
+    "dataset": "member2_gold",
+    "node_id": "8ed320f5",
     "status": "Available",
-    "size": 18
-  },
-  {
-    "event": "after_node_run",
-    "node": "ingest_laboratory_bronze_node",
-    "node_id": "6f010480",
-    "duration": 0.216955599999892,
-    "status": "success"
-  },
-  {
-    "event": "after_dataset_saved",
-    "dataset": "member3_lab_bronze",
-    "node_id": "7fbe1888",
-    "status": "Available",
-    "size": 1504663
-  },
-  {
-    "event": "after_dataset_loaded",
-    "dataset": "ingestion_status",
-    "node_id": "f6fc63f1",
-    "status": "Available",
-    "size": 18
-  },
-  {
-    "event": "after_node_run",
-    "node": "ingest_limited_access_bronze_node",
-    "node_id": "6efe37ce",
-    "duration": 0.027565899999899557,
-    "status": "success"
-  },
-  {
-    "event": "after_dataset_saved",
-    "dataset": "member3_ltd_bronze",
-    "node_id": "d02a9fc1",
-    "status": "Available",
-    "size": 68712
-  },
-  {
-    "event": "after_dataset_loaded",
-    "dataset": "member3_lab_bronze",
-    "node_id": "7fbe1888",
-    "status": "Available",
-    "size": 1504663
-  },
-  {
-    "event": "after_node_run",
-    "node": "process_laboratory_silver_node",
-    "node_id": "978ef79e",
-    "duration": 0.1859652000002825,
-    "status": "success"
-  },
-  {
-    "event": "after_dataset_saved",
-    "dataset": "member3_lab_silver",
-    "node_id": "3dbb82e1",
-    "status": "Available",
-    "size": 1635776
-  },
-  {
-    "event": "after_dataset_saved",
-    "dataset": "member3_lab_rejected",
-    "node_id": "4bc9b9e3",
-    "status": "Available",
-    "size": 44043
-  },
-  {
-    "event": "after_dataset_loaded",
-    "dataset": "member3_ltd_bronze",
-    "node_id": "d02a9fc1",
-    "status": "Available",
-    "size": 68712
-  },
-  {
-    "event": "after_node_run",
-    "node": "process_limited_access_silver_node",
-    "node_id": "5e943010",
-    "duration": 0.02881569999999556,
-    "status": "success"
-  },
-  {
-    "event": "after_dataset_saved",
-    "dataset": "member3_ltd_silver",
-    "node_id": "8abfc5d3",
-    "status": "Available",
-    "size": 121445
-  },
-  {
-    "event": "after_dataset_saved",
-    "dataset": "member3_ltd_rejected",
-    "node_id": "adc073c0",
-    "status": "Available",
-    "size": 5673
-  },
-  {
-    "event": "after_dataset_loaded",
-    "dataset": "member3_lab_silver",
-    "node_id": "3dbb82e1",
-    "status": "Available",
-    "size": 1635776
-  },
-  {
-    "event": "after_dataset_loaded",
-    "dataset": "member3_ltd_silver",
-    "node_id": "8abfc5d3",
-    "status": "Available",
-    "size": 121445
-  },
-  {
-    "event": "after_node_run",
-    "node": "build_laboratory_gold_node",
-    "node_id": "b272d4e6",
-    "duration": 0.06604090000018914,
-    "status": "success"
-  },
-  {
-    "event": "after_dataset_saved",
-    "dataset": "member3_gold",
-    "node_id": "681d0926",
-    "status": "Available",
-    "size": 1562528
-  },
-  {
-    "event": "after_dataset_loaded",
-    "dataset": "member3_lab_silver",
-    "node_id": "3dbb82e1",
-    "status": "Available",
-    "size": 1635776
-  },
-  {
-    "event": "after_dataset_loaded",
-    "dataset": "member3_lab_rejected",
-    "node_id": "4bc9b9e3",
-    "status": "Available",
-    "size": 44043
-  },
-  {
-    "event": "after_dataset_loaded",
-    "dataset": "member3_ltd_silver",
-    "node_id": "8abfc5d3",
-    "status": "Available",
-    "size": 121445
-  },
-  {
-    "event": "after_dataset_loaded",
-    "dataset": "member3_ltd_rejected",
-    "node_id": "adc073c0",
-    "status": "Available",
-    "size": 5673
-  },
-  {
-    "event": "after_node_run",
-    "node": "generate_quality_report_node",
-    "node_id": "d13631d3",
-    "duration": 0.03785729999981413,
-    "status": "success"
-  },
-  {
-    "event": "after_dataset_saved",
-    "dataset": "member3_quality_report",
-    "node_id": "481385b9",
-    "status": "Available",
-    "size": 2612
+    "size": 708526
   },
   {
     "event": "after_dataset_loaded",
@@ -200,27 +25,40 @@
     "size": 1562528
   },
   {
-    "event": "after_dataset_loaded",
-    "dataset": "params:postgres_credentials",
-    "node_id": "da7197a7",
-    "status": "Available",
-    "size": 0
+    "event": "after_node_run",
+    "node": "merge_and_feature_engineer_node",
+    "node_id": "d3714a87",
+    "duration": 0.276249700000335,
+    "status": "success"
   },
   {
-    "event": "after_node_run",
-    "node": "export_gold_to_postgres_node",
-    "node_id": "28d4d129",
-    "duration": 39.31823130000021,
-    "status": "success"
+    "event": "after_dataset_saved",
+    "dataset": "master_longevity_dataset",
+    "node_id": "dd917a54",
+    "status": "Available",
+    "size": 25358
+  },
+  {
+    "event": "after_dataset_loaded",
+    "dataset": "master_longevity_dataset",
+    "node_id": "dd917a54",
+    "status": "Available",
+    "size": 25358
+  },
+  {
+    "event": "on_node_error",
+    "node": "train_tpot_automl_node",
+    "node_id": "22d4a19c",
+    "error": "TPOTEstimator.__init__() got an unexpected keyword argument 'verbosity'. Did you mean 'verbose'?",
+    "timestamp": "2026-06-23T23:43:57.913679+00:00",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\runner\\task.py\", line 299, in _call_node_run\n    outputs = node.run(inputs)\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\pipeline\\node.py\", line 562, in run\n    raise exc\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\pipeline\\node.py\", line 546, in run\n    outputs = self._run_with_one_input(inputs, self._inputs)\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\pipeline\\node.py\", line 582, in _run_with_one_input\n    return self._func(inputs[node_input])\n           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mapap\\Desktop\\quinto_semestre\\Programaci\u00f3n para la ciencia de datos\\EV3Nhanes\\nhanes-health-analytics\\kedro-pipeline\\src\\nhanes_pipeline\\pipelines\\data_science_longevity\\nodes.py\", line 93, in train_tpot_automl\n    tpot.fit(X_train, y_train)\n    ~~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\tpot\\tpot_estimator\\templates\\tpottemplates.py\", line 277, in fit\n    super(TPOTRegressor,self).__init__(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        search_space=search_space,\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<22 lines>...\n        random_state=self.random_state,\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        **self.tpotestimator_kwargs)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: TPOTEstimator.__init__() got an unexpected keyword argument 'verbosity'. Did you mean 'verbose'?\n"
   },
   {
     "event": "on_pipeline_error",
-    "error": "member3_postgres_status: Failed while saving data to dataset kedro_datasets.text.text_dataset.TextDataset(filepath=PurePosixPath('C:/Users/mapap/Desktop/quinto_semestre/Programaci\u00f3n para la ciencia de datos/EV3Nhanes/nhanes-health-analytics/kedro-pipeline/data/08_reporting/member3_postgres_status.txt'), protocol='file').\n'charmap' codec can't encode character '\\u2192' in position 25: character maps to <undefined>",
-    "timestamp": "2026-06-23T16:51:35.007846+00:00",
-    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\io\\core.py\", line 301, in save\n    save_func(self, data)\n    ~~~~~~~~~^^^^^^^^^^^^\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro_datasets\\text\\text_dataset.py\", line 134, in save\n    fs_file.write(data)\n    ~~~~~~~~~~~~~^^^^^^\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\encodings\\cp1252.py\", line 19, in encode\n    return codecs.charmap_encode(input,self.errors,encoding_table)[0]\n           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeEncodeError: 'charmap' codec can't encode character '\\u2192' in position 25: character maps to <undefined>\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\io\\data_catalog.py\", line 1017, in save\n    dataset.save(data)\n    ~~~~~~~~~~~~^^^^^^\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\io\\core.py\", line 904, in save\n    super()._save_wrapper(save_func)(self, data)\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\io\\core.py\", line 306, in save\n    raise DatasetError(message) from exc\nkedro.io.core.DatasetError: Failed while saving data to dataset kedro_datasets.text.text_dataset.TextDataset(filepath=PurePosixPath('C:/Users/mapap/Desktop/quinto_semestre/Programaci\u00f3n para la ciencia de datos/EV3Nhanes/nhanes-health-analytics/kedro-pipeline/data/08_reporting/member3_postgres_status.txt'), protocol='file').\n'charmap' codec can't encode character '\\u2192' in position 25: character maps to <undefined>\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\framework\\session\\session.py\", line 432, in run\n    run_result = runner.run(\n        filtered_pipeline,\n    ...<3 lines>...\n        only_missing_outputs=only_missing_outputs,\n    )\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\runner\\runner.py\", line 115, in run\n    self._run(pipeline, catalog, hook_or_null_manager, run_id)  # type: ignore[arg-type]\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\runner\\sequential_runner.py\", line 63, in _run\n    super()._run(\n    ~~~~~~~~~~~~^\n        pipeline=pipeline,\n        ^^^^^^^^^^^^^^^^^^\n    ...<2 lines>...\n        run_id=run_id,\n        ^^^^^^^^^^^^^^\n    )\n    ^\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\runner\\runner.py\", line 240, in _run\n    ).execute()\n      ~~~~~~~^^\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\runner\\task.py\", line 88, in execute\n    node = self._run_node_sequential(\n        self.node,\n    ...<2 lines>...\n        self.run_id,\n    )\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\runner\\task.py\", line 186, in _run_node_sequential\n    catalog.save(name, data)\n    ~~~~~~~~~~~~^^^^^^^^^^^^\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\io\\data_catalog.py\", line 1019, in save\n    raise DatasetError(f\"{ds_name}: {e}\") from e\nkedro.io.core.DatasetError: member3_postgres_status: Failed while saving data to dataset kedro_datasets.text.text_dataset.TextDataset(filepath=PurePosixPath('C:/Users/mapap/Desktop/quinto_semestre/Programaci\u00f3n para la ciencia de datos/EV3Nhanes/nhanes-health-analytics/kedro-pipeline/data/08_reporting/member3_postgres_status.txt'), protocol='file').\n'charmap' codec can't encode character '\\u2192' in position 25: character maps to <undefined>\n",
-    "dataset": "member3_postgres_status",
-    "operation": "saving",
-    "node": "export_gold_to_postgres_node",
-    "node_id": "28d4d129"
+    "error": "TPOTEstimator.__init__() got an unexpected keyword argument 'verbosity'. Did you mean 'verbose'?",
+    "timestamp": "2026-06-23T23:43:57.921779+00:00",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\framework\\session\\session.py\", line 432, in run\n    run_result = runner.run(\n        filtered_pipeline,\n    ...<3 lines>...\n        only_missing_outputs=only_missing_outputs,\n    )\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\runner\\runner.py\", line 115, in run\n    self._run(pipeline, catalog, hook_or_null_manager, run_id)  # type: ignore[arg-type]\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\runner\\sequential_runner.py\", line 63, in _run\n    super()._run(\n    ~~~~~~~~~~~~^\n        pipeline=pipeline,\n        ^^^^^^^^^^^^^^^^^^\n    ...<2 lines>...\n        run_id=run_id,\n        ^^^^^^^^^^^^^^\n    )\n    ^\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\runner\\runner.py\", line 240, in _run\n    ).execute()\n      ~~~~~~~^^\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\runner\\task.py\", line 88, in execute\n    node = self._run_node_sequential(\n        self.node,\n    ...<2 lines>...\n        self.run_id,\n    )\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\runner\\task.py\", line 164, in _run_node_sequential\n    outputs = self._call_node_run(\n        node, catalog, inputs, is_async, hook_manager, run_id=run_id\n    )\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\runner\\task.py\", line 309, in _call_node_run\n    raise exc\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\runner\\task.py\", line 299, in _call_node_run\n    outputs = node.run(inputs)\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\pipeline\\node.py\", line 562, in run\n    raise exc\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\pipeline\\node.py\", line 546, in run\n    outputs = self._run_with_one_input(inputs, self._inputs)\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\kedro\\pipeline\\node.py\", line 582, in _run_with_one_input\n    return self._func(inputs[node_input])\n           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mapap\\Desktop\\quinto_semestre\\Programaci\u00f3n para la ciencia de datos\\EV3Nhanes\\nhanes-health-analytics\\kedro-pipeline\\src\\nhanes_pipeline\\pipelines\\data_science_longevity\\nodes.py\", line 93, in train_tpot_automl\n    tpot.fit(X_train, y_train)\n    ~~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mapap\\anaconda3\\Lib\\site-packages\\tpot\\tpot_estimator\\templates\\tpottemplates.py\", line 277, in fit\n    super(TPOTRegressor,self).__init__(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        search_space=search_space,\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<22 lines>...\n        random_state=self.random_state,\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        **self.tpotestimator_kwargs)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: TPOTEstimator.__init__() got an unexpected keyword argument 'verbosity'. Did you mean 'verbose'?\n",
+    "node": "train_tpot_automl_node",
+    "node_id": "22d4a19c"
   }
 ]
