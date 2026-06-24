@@ -17,7 +17,7 @@ Para entender a profundidad cada capa del proyecto, consulta nuestra documentaci
 
 Todo el proyecto está dockerizado para que con un solo comando se levanten todos los servicios y se interconecten correctamente.
 
-### 1. Levantar los Servicios
+### 1. Levantar la Infraestructura
 
 Abre una terminal en la raíz de este proyecto y ejecuta:
 
@@ -26,19 +26,27 @@ docker compose up -d --build
 ```
 
 Esto levantará:
-- `nhanes_postgres`: La base de datos relacional (expuesta localmente en el puerto 5432).
+- `nhanes_postgres`: La base de datos relacional (expuesta localmente en el puerto 5434).
 - `nhanes_pgadmin`: Interfaz para la base de datos (expuesta en el puerto 5050).
 - `nhanes_backend`: El servidor de Java Spring Boot (expuesto en el puerto 8081).
+- `nhanes_backend_ml`: El microservicio Python FastAPI con el modelo TPOT (expuesto en el puerto 8000).
 - `nhanes_frontend`: La interfaz de usuario Next.js (expuesta en el puerto 3000).
 
 *(Consulta la [Guía de Despliegue](docs/deployment/docker-guide.md) para configuraciones avanzadas o uso de archivo `.env`).*
 
-### 2. Ejecutar las Pruebas Unitarias
+### 2. Ejecutar Kedro y Poblar la Base de Datos
 
-El pipeline analítico de Kedro cuenta con pruebas unitarias desarrolladas en `pytest`:
+Una vez levantada la infraestructura, la base de datos estará vacía. Para procesar los datos crudos y cargarlos:
 
 ```bash
-pytest tests/
+# Entrar al entorno de Kedro y correr el pipeline
+cd kedro-pipeline
+kedro run
+cd ..
+
+# Cargar los datos resultantes a PostgreSQL
+python load_to_postgres.py
+python update_postgres_member2.py
 ```
 
 ### 3. Visualizar el Dashboard
@@ -46,4 +54,5 @@ pytest tests/
 Abre tu navegador de preferencia y visita:
 👉 **[http://localhost:3000](http://localhost:3000)**
 
-Si todo ha salido bien, verás el Dashboard interactivo mostrando los KPIs de salud, gráficos de Plotly y distribuciones por audiencias.
+Si todo ha salido bien, verás el Dashboard interactivo mostrando los KPIs de salud, gráficos de Plotly y distribuciones por audiencias. También puedes probar la API predictiva directamente en Swagger:
+👉 **[http://localhost:8000/docs](http://localhost:8000/docs)**
